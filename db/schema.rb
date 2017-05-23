@@ -11,11 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170523050807) do
+ActiveRecord::Schema.define(version: 20170523053602) do
 
   create_table "babies", force: :cascade do |t|
     t.string   "name"
     t.date     "birthdate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sizes", force: :cascade do |t|
+    t.date     "entry_date"
+    t.decimal  "weight"
+    t.decimal  "height"
+    t.integer  "baby_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
