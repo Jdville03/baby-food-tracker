@@ -4,6 +4,7 @@ class Baby < ActiveRecord::Base
   has_many :sizes
 
   validates :name, :birthdate, presence: true
+  has_secure_password
 
   extend Slugifiable::ClassMethods
   include Slugifiable::InstanceMethods
