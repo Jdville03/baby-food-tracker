@@ -1,6 +1,6 @@
 class Meal < ActiveRecord::Base
   belongs_to :baby
-  validates :baby, presence: true
+  validates :baby, presence: true # validates that belongs_to association is present
 
   validates :entry_datetime, :food_type, presence: true
   validates :food_type, inclusion: { in: ["breast milk", "formula", "solids"] }
