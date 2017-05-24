@@ -8,5 +8,4 @@ class User < ActiveRecord::Base
 
   extend Slugifiable::ClassMethods
   include Slugifiable::InstanceMethods
-
 end
