@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     if logged_in?
       redirect "/users/#{current_user.slug}"
     else
-      erb :'/users/signup'
+      erb :'users/signup'
     end
   end
 
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       redirect "/users/#{current_user.slug}"
     else
       #redirect :'/users/signup'
-      erb :'/users/signup'  # view can access @user in order to display password_confirmation validation failure to user with error message
+      erb :'users/signup'  # view can access @user in order to display password_confirmation validation failure to user with error message
     end
   end
 
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     if logged_in?
       redirect "/users/#{current_user.slug}"
     else
-      erb :'/users/login'
+      erb :'users/login'
     end
   end
 
@@ -33,10 +33,10 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect "/users/#{current_user.slug}"
     else
-      erb :'/users/login', locals: {message: "The Name and Password combination is not valid. Please try again."}
+      erb :'users/login', locals: {message: "The Name and Password combination is not valid. Please try again."}
     end
   end
-  
+
   get '/logout' do
     if logged_in?
       session.clear
@@ -46,39 +46,13 @@ class UsersController < ApplicationController
     end
   end
 
-
-  # GET: /users
-  get "/users" do
-    erb :"/users/index"
+  get '/users/:slug' do
+    @user = User.find_by_slug(params[:slug])
+    if @user.id == current_user.id
+      erb :'users/show'
+    else  # user may only view its own show page which lists the babies under its care
+      redirect "/users/#{current_user.slug}"
+    end
   end
 
-  # GET: /users/new
-  get "/users/new" do
-    erb :"/users/new"
-  end
-
-  # POST: /users
-  post "/users" do
-    redirect "/users"
-  end
-
-  # GET: /users/5
-  get "/users/:id" do
-    erb :"/users/show"
-  end
-
-  # GET: /users/5/edit
-  get "/users/:id/edit" do
-    erb :"/users/edit"
-  end
-
-  # PATCH: /users/5
-  patch "/users/:id" do
-    redirect "/users/:id"
-  end
-
-  # DELETE: /users/5/delete
-  delete "/users/:id/delete" do
-    redirect "/users"
-  end
 end
