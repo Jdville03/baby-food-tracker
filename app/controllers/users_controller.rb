@@ -14,7 +14,6 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect "/users/#{current_user.slug}"
     else
-      #redirect :'/users/signup'
       erb :'users/signup'  # view can access @user in order to display password_confirmation validation failure to user with error message
     end
   end
