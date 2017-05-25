@@ -32,7 +32,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect "/users/#{current_user.slug}"
     else
-      erb :'users/login', locals: {message: "The Name and Password combination is not valid. Please try again."}
+      erb :'users/login', locals: {message: "The Name and Password combination is not valid."}  # error message displayed in view if user name and password are not valid
     end
   end
 
@@ -47,9 +47,10 @@ class UsersController < ApplicationController
 
   get '/users/:slug' do
     @user = User.find_by_slug(params[:slug])
+    # user may only view its own show page which lists the babies under its care
     if @user.id == current_user.id
       erb :'users/show'
-    else  # user may only view its own show page which lists the babies under its care
+    else
       redirect "/users/#{current_user.slug}"
     end
   end

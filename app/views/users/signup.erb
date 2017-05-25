@@ -1,6 +1,7 @@
 <h2>Sign Up</h2>
 
 <% if @user && @user.errors.any? %>
+  Please try again:<br><br>
   <ul>
    <% @user.errors.full_messages.each do |msg| %>
      <li><%= msg %></li>
@@ -8,6 +9,7 @@
  </ul><br>
 <% end %>
 
+<!-- form includes user's previously entered data on subsequent attempts to sign up after receiving a validation error -->
 <form action="/signup" method="POST">
   <label for="name">Name:</label>
   <input type="text" id="name" name="name" value="<%= @user.name if @user %>" required>
@@ -16,10 +18,10 @@
   <input type="email" id="email" name="email" value="<%= @user.email if @user %>" required>
   <br><br>
   <label for="password">Password:</label>
-  <input type="password" id="password" name="password" required>
+  <input type="password" id="password" name="password" value="<%= @user.password if @user %>" required>
   <br><br>
   <label for="password_confirmation">Confirm Password:</label>
-  <input type="password" id="password_confirmation" name="password_confirmation" required>
+  <input type="password" id="password_confirmation" name="password_confirmation" value="<%= @user.password_confirmation if @user %>" required>
   <br><br>
   <input type="submit" value="Sign Up">
 </form>
