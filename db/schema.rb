@@ -16,8 +16,9 @@ ActiveRecord::Schema.define(version: 20170524034410) do
   create_table "babies", force: :cascade do |t|
     t.string   "name"
     t.date     "birthdate"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "meals", force: :cascade do |t|
@@ -47,7 +48,7 @@ ActiveRecord::Schema.define(version: 20170524034410) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "username"
+    t.string   "name"
     t.string   "email"
     t.string   "password_digest"
     t.datetime "created_at",      null: false
