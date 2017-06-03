@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect "/users/#{current_user.slug}"
     else
-      erb :'users/signup'  # view can access @user in order to display password_confirmation validation failure to user with error message
+      erb :'users/signup'  # view can access @user in order to display validation failures to user with error messages
     end
   end
 
@@ -22,6 +22,7 @@ class UsersController < ApplicationController
     if logged_in?
       redirect "/users/#{current_user.slug}"
     else
+      @error_message = params[:error]
       erb :'users/login'
     end
   end
@@ -32,7 +33,8 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect "/users/#{current_user.slug}"
     else
-      erb :'users/login', locals: {message: "The Name and Password combination is not valid."}  # error message displayed in view if user name and password are not valid
+      # error message displayed in view if user name and password are not valid
+      redirect '/login?error=The Name and Password combination is not valid. Please try again or sign up.' 
     end
   end
 

@@ -1,7 +1,7 @@
 <h2>Log In</h2>
 
-<% unless locals.empty? %>
-  <%= message %> Please try again or <a href="/signup">sign up</a>.
+<% if @error_message %>
+  <%= @error_message %>
   <br><br>
 <% end %>
 
