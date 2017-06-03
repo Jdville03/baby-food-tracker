@@ -1,6 +1,6 @@
-<h1>This is the show page for an individual instance of your model.</h1>
-
-<% unless locals.empty? %>
-  <%= message %>
+<% if @error_message %>
+  <%= @error_message %>
   <br><br>
 <% end %>
+
+<h1>This is the show page for an individual instance of your model.</h1>

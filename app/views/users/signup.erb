@@ -1,5 +1,3 @@
-<h2>Sign Up</h2>
-
 <% if @user && @user.errors.any? %>
   Please try again:<br><br>
   <ul>
@@ -8,6 +6,8 @@
    <% end %>
  </ul><br>
 <% end %>
+
+<h2>Sign Up</h2>
 
 <!-- form includes user's previously entered data on subsequent attempts to sign up after receiving a validation error -->
 <form action="/signup" method="POST">

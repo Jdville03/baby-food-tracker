@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   get '/signup' do
     if logged_in?
-      redirect "/users/#{current_user.slug}"
+      redirect "/users/#{current_user.slug}?error=You are already logged in."
     else
       erb :'users/signup'
     end
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
   get '/login' do
     if logged_in?
-      redirect "/users/#{current_user.slug}"
+      redirect "/users/#{current_user.slug}?error=You are already logged in."
     else
       @error_message = params[:error]
       erb :'users/login'
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
       redirect "/users/#{current_user.slug}"
     else
       # error message displayed in view if user name and password are not valid
-      redirect '/login?error=The Name and Password combination is not valid. Please try again or sign up.' 
+      redirect '/login?error=The Name and Password combination is not valid. Please try again or sign up.'
     end
   end
 
@@ -43,17 +43,19 @@ class UsersController < ApplicationController
       session.clear
       redirect '/login'
     else
-      redirect '/'
+      redirect '/login?error=You are already logged out.'
     end
   end
 
   get '/users/:slug' do
+    redirect_if_not_logged_in
+    @error_message = params[:error]
     @user = User.find_by_slug(params[:slug])
     # user may only view its own show page which lists the babies under its care
-    if @user.id == current_user.id
+    if @user && @user.id == current_user.id
       erb :'users/show'
     else
-      redirect "/users/#{current_user.slug}"
+      redirect "/users/#{current_user.slug}?error=You may only view your own home page."
     end
   end
 
