@@ -8,5 +8,9 @@ class Baby < ActiveRecord::Base
   has_secure_password
 
   extend Slugifiable::ClassMethods
-  include Slugifiable::InstanceMethods
+  #include Slugifiable::InstanceMethods
+
+  def slug
+    self.name.downcase.gsub(/[\s\W]/, "-")
+  end
 end
