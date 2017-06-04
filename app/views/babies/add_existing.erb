@@ -1,6 +1,11 @@
-<h1>Add an existing baby</h1>
+<% if @error_message %>
+  <%= @error_message %>
+  <br><br>
+<% end %>
 
-<form action="/babies" method="POST">
+<h2>Add an existing baby</h2>
+
+<form action="/babies/add-existing" method="POST">
   <p>Choose a baby who has already been added by another user (you will need to obtain the baby's personal identification code (PIC) created by the other user):</p>
   <label for="name">Name:</label>
   <input type="text" id="name" name="name" required>

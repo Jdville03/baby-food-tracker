@@ -9,12 +9,13 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
-    @user = User.new(params)
+    @user = User.create(params)
     if @user.save
       session[:user_id] = @user.id
       redirect "/users/#{current_user.slug}"
     else
-      erb :'users/signup'  # view can access @user in order to display validation failures to user with error messages
+      # view can access @user in order to display validation failures to user with error messages
+      erb :'users/signup'
     end
   end
 
@@ -28,13 +29,12 @@ class UsersController < ApplicationController
   end
 
   post '/login' do
-    user = User.find_by(username: params[:username])
-    if user && user.authenticate(params[:password])
+    if user = User.find_by(username: params[:username]).try(:authenticate, params[:password])
       session[:user_id] = user.id
       redirect "/users/#{current_user.slug}"
     else
       # error message displayed in view if user name and password are not valid
-      redirect '/login?error=The Name and Password combination is not valid. Please try again or sign up.'
+      redirect '/login?error=The Username and Password combination is not valid. Please try again or sign up.'
     end
   end
 
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
     redirect_if_not_logged_in
     @error_message = params[:error]
     @user = User.find_by_slug(params[:slug])
-    # user may only view its own show page which lists the babies under its care
+    # user may only view its own show page which lists the babies it has
     if @user && @user.id == current_user.id
       erb :'users/show'
     else

@@ -7,12 +7,56 @@ class BabiesController < ApplicationController
 
   # GET: /babies/new
   get '/babies/add-new' do
+    redirect_if_not_logged_in
     erb :'babies/add_new'
   end
 
   get '/babies/add-existing' do
+    redirect_if_not_logged_in
+    @error_message = params[:error]
     erb :'babies/add_existing'
   end
+
+  post '/babies/add-new' do
+    redirect_if_not_logged_in
+    @baby = current_user.babies.create(params)
+    if @baby.save
+      redirect "/users/#{current_user.slug}"
+    else
+      # view can access @baby in order to display validation failures with error messages
+      erb :'babies/add_new'
+    end
+  end
+
+  post '/babies/add-existing' do
+    redirect_if_not_logged_in
+    if baby = Baby.find_by(name: params[:name]).try(:authenticate, params[:password])
+      if current_user.babies.include?(baby)
+        # error message displayed in view if existing baby being added already belongs to the user
+        redirect "/users/#{current_user.slug}?error=The baby you attempted to add is already included in your profile."
+      else
+        current_user.babies << baby
+        redirect "/users/#{current_user.slug}"
+      end
+    else
+      # error message displayed in view if name and password (PIC) are not valid
+      redirect '/babies/add-existing?error=The Name and PIC combination is not valid. Please try again.'
+    end
+  end
+
+  get '/babies/:slug' do
+    redirect_if_not_logged_in
+    @error_message = params[:error]
+    @baby = current_user.babies.find_by_slug(params[:slug])
+    # user may only view show page of baby that belongs to the user
+    if @baby
+      erb :'babies/show'
+    else
+      redirect "/users/#{current_user.slug}?error=You may only view your own babies pages."
+    end
+  end
+
+
 
   # POST: /babies
   post "/babies" do

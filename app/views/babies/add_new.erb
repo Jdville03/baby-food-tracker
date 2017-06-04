@@ -1,19 +1,29 @@
-<h1>Create a new baby</h1>
+<% if @baby && @baby.errors.any? %>
+  Please try again:<br><br>
+  <ul>
+   <% @baby.errors.full_messages.uniq.each do |msg| %>
+     <li><%= msg %></li>
+   <% end %>
+ </ul><br>
+<% end %>
 
-<form action="/babies" method="POST">
+<h2>Create a new baby</h2>
+
+<!-- form includes previously entered data on subsequent attempts to create a new baby after a validation error -->
+<form action="/babies/add-new" method="POST">
   <label for="name">Name:</label>
-  <input type="text" id="name" name="name" required>
+  <input type="text" id="name" name="name" value="<%= @baby.name if @baby %>" required>
   <br><br>
   <label for="birthdate">Birthdate:</label>
-  <input type="text" id="birthdate" name="birthdate" required>
+  <input type="date" id="birthdate" name="birthdate" value="<%= @baby.birthdate if @baby %>" required>
   <br><br>
   <label for="pic">Personal Identification Code (PIC):</label>
-  <input type="password" id="pic" name="password" required>
+  <input type="password" id="pic" name="password" value="<%= @baby.password if @baby %>" required>
   <br>
   (other users will be required to enter the baby's PIC in order to add this baby to their profiles)
   <br><br>
   <label for="pic_confirmation">Confirm PIC:</label>
-  <input type="password" id="pic_confirmation" name="password_confirmation" required>
+  <input type="password" id="pic_confirmation" name="password_confirmation" value="<%= @baby.password_confirmation if @baby %>" required>
   <br><br>
   <input type="submit" value="Submit">
 </form>
