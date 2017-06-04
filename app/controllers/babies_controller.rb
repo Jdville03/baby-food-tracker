@@ -1,13 +1,17 @@
 class BabiesController < ApplicationController
 
   # GET: /babies
-  get "/babies" do
-    erb :"/babies/index"
-  end
+  #get "/babies" do
+  #  erb :"/babies/index"
+  #end
 
   # GET: /babies/new
-  get "/babies/new" do
-    erb :"/babies/new"
+  get '/babies/add-new' do
+    erb :'babies/add_new'
+  end
+
+  get '/babies/add-existing' do
+    erb :'babies/add_existing'
   end
 
   # POST: /babies

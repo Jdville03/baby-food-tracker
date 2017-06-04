@@ -1,0 +1,19 @@
+<h1>Create a new baby</h1>
+
+<form action="/babies" method="POST">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required>
+  <br><br>
+  <label for="birthdate">Birthdate:</label>
+  <input type="text" id="birthdate" name="birthdate" required>
+  <br><br>
+  <label for="pic">Personal Identification Code (PIC):</label>
+  <input type="password" id="pic" name="password" required>
+  <br>
+  (other users will be required to enter the baby's PIC in order to add this baby to their profiles)
+  <br><br>
+  <label for="pic_confirmation">Confirm PIC:</label>
+  <input type="password" id="pic_confirmation" name="password_confirmation" required>
+  <br><br>
+  <input type="submit" value="Submit">
+</form>

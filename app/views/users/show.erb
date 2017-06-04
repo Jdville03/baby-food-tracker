@@ -3,4 +3,19 @@
   <br><br>
 <% end %>
 
-<h1>This is the show page for an individual instance of your model.</h1>
+<h1>Welcome, <%= @user.username %></h1>
+
+<% unless @user.babies.empty? %>
+  <h3>Babies:</h3>
+  <% @user.babies.each do |baby| %>
+    <ul>
+      <li><a href="/babies/<%= baby.slug %>"><%= baby.name %></a></li>
+    </ul>
+  <% end %>
+<% end %>
+<br>
+
+<p>
+  Add a baby to your profile:
+  <a href="/babies/add-new">Create a new baby</a> or <a href="/babies/add-existing">Add an existing baby (created by another user)</a>
+</p>
