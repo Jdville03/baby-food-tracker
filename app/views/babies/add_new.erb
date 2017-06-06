@@ -17,13 +17,13 @@
   <label for="birthdate">Birthdate:</label>
   <input type="date" id="birthdate" name="birthdate" value="<%= @baby.birthdate if @baby %>" required>
   <br><br>
-  <label for="pic">Personal Identification Code (PIC):</label>
-  <input type="password" id="pic" name="password" value="<%= @baby.password if @baby %>" required>
+  <label for="password">Personal Identification Password (PIP):</label>
+  <input type="password" id="password" name="password" value="<%= @baby.password if @baby %>" required>
   <br>
-  (other users will be required to enter the baby's PIC in order to add this baby to their profiles)
+  (other users will be required to enter the baby's PIP in order to add this baby to their profiles)
   <br><br>
-  <label for="pic_confirmation">Confirm PIC:</label>
-  <input type="password" id="pic_confirmation" name="password_confirmation" value="<%= @baby.password_confirmation if @baby %>" required>
+  <label for="password_confirmation">Confirm PIP:</label>
+  <input type="password" id="password_confirmation" name="password_confirmation" value="<%= @baby.password_confirmation if @baby %>" required>
   <br><br>
   <input type="submit" value="Submit">
 </form>

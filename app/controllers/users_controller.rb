@@ -33,7 +33,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect "/users/#{current_user.slug}"
     else
-      # error message displayed in view if user name and password are not valid
+      # error message displayed in view if username and password are not valid
       redirect '/login?error=The Username and Password combination is not valid. Please try again or sign up.'
     end
   end
