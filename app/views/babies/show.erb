@@ -1,1 +1,41 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+<h2>Baby <%= @baby.name %></h2>
+
+<h3>Birthdate: <%= @baby.birthdate.strftime("%B %-d, %Y") %></h3>
+
+<h3>Caretakers:</h3>
+<% @baby.users.each do |user| %>
+  <ul>
+    <% if user.id == current_user.id %>
+      <li><a href="/users/<%= user.slug %>"><%= user.name %></a></li>
+    <% else %>
+      <li><%= user.name %></li>
+    <% end %>
+  </ul>
+<% end %>
+<br>
+
+<h3>Meals:</h3>
+
+<h3>Height and Weight:</h3>
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Height (inches)</th>
+    <th>Weight (lbs)</th>
+  </tr>
+  <tr>
+    <td align="center"><%= @baby.name %></td>
+    <td align="center">gsd</td>
+    <td align="center">asdfasdfasdfasdf</td>
+  </tr>
+<table>
+<br>
+<p><a href="/babies/<%= @baby.slug %>/size">Add or Edit</a></p>
+
+
+<br>
+If you would like to remove <%= @baby.name.split(" ").first %> from your list of babies, click below (<%= @baby.name.split(" ").first %> will remain visible to his or her other caretakers):
+<form action="/babies/<%= @baby.slug %>/delete" method="POST">
+  <input type="hidden" id="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Remove Baby">
+</form>

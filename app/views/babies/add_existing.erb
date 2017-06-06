@@ -6,12 +6,12 @@
 <h2>Add an existing baby</h2>
 
 <form action="/babies/add-existing" method="POST">
-  <p>Choose a baby who has already been added by another user (you will need to obtain the baby's personal identification code (PIC) created by the other user):</p>
+  <p>Choose a baby who has already been added by another user (you will need to obtain the baby's personal identification password (PIP) from the user who created the baby):</p>
   <label for="name">Name:</label>
   <input type="text" id="name" name="name" required>
   <br><br>
-  <label for="pic">PIC:</label>
-  <input type="password" id="pic" name="password" required>
+  <label for="password">PIP:</label>
+  <input type="password" id="password" name="password" required>
   <br><br>
   <input type="submit" value="Submit">
 </form>

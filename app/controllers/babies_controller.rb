@@ -46,27 +46,44 @@ class BabiesController < ApplicationController
 
   get '/babies/:slug' do
     redirect_if_not_logged_in
-    @error_message = params[:error]
+    #@error_message = params[:error]
     @baby = current_user.babies.find_by_slug(params[:slug])
     # user may only view show page of baby that belongs to the user
     if @baby
       erb :'babies/show'
     else
-      redirect "/users/#{current_user.slug}?error=You may only view your own babies pages."
+      redirect "/users/#{current_user.slug}?error=You may only view your own babies."
     end
   end
 
+  get '/babies/:slug/size' do
+    redirect_if_not_logged_in
+    @baby = current_user.babies.find_by_slug(params[:slug])
+    if @baby
+      erb :'sizes/edit'
+    else
+      edirect "/users/#{current_user.slug}?error=You may only add or edit entries for your own babies."
+    end
+  end
+
+  delete '/babies/:slug/delete' do
+    redirect_if_not_logged_in
+    baby = current_user.babies.find_by_slug(params[:slug])
+    # user may only remove baby from own profile (baby will still remain visible to its other users)
+    current_user.babies.delete(baby.id) if baby
+    redirect "/users/#{current_user.slug}"
+  end
 
 
   # POST: /babies
-  post "/babies" do
-    redirect "/babies"
-  end
+  #post "/babies" do
+  #  redirect "/babies"
+  #end
 
   # GET: /babies/5
-  get "/babies/:id" do
-    erb :"/babies/show"
-  end
+  #get "/babies/:id" do
+  #  erb :"/babies/show"
+  #end
 
   # GET: /babies/5/edit
   get "/babies/:id/edit" do
@@ -79,7 +96,7 @@ class BabiesController < ApplicationController
   end
 
   # DELETE: /babies/5/delete
-  delete "/babies/:id/delete" do
-    redirect "/babies"
-  end
+  #delete "/babies/:id/delete" do
+  #  redirect "/babies"
+  #end
 end

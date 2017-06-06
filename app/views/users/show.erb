@@ -6,7 +6,7 @@
 <h2>Welcome, <%= @user.username %></h2>
 
 <% unless @user.babies.empty? %>
-  <h3>Babies:</h3>
+  <h3>Babies Under Your Care:</h3>
   <% @user.babies.each do |baby| %>
     <ul>
       <li><a href="/babies/<%= baby.slug %>"><%= baby.name %></a></li>
@@ -16,6 +16,6 @@
 <br>
 
 <p>
-  Add a baby to your profile:
+  Add a baby:
   <a href="/babies/add-new">Create a new baby</a> or <a href="/babies/add-existing">Add an existing baby (created by another user)</a>
 </p>
