@@ -56,13 +56,24 @@ class BabiesController < ApplicationController
     end
   end
 
-  get '/babies/:slug/size' do
+  get '/babies/:slug/size/:id/edit' do
     redirect_if_not_logged_in
     @baby = current_user.babies.find_by_slug(params[:slug])
     if @baby
       erb :'sizes/edit'
     else
-      edirect "/users/#{current_user.slug}?error=You may only add or edit entries for your own babies."
+      redirect "/users/#{current_user.slug}?error=You may only add or edit entries for your own babies."
+    end
+  end
+
+  patch '/babies/:slug' do
+    redirect_if_not_logged_in
+    baby = current_user.babies.find_by_slug(params[:slug])
+    if baby
+      baby.sizes.update_all
+
+    else
+
     end
   end
 

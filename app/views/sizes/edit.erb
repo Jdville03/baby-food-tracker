@@ -1,14 +1,12 @@
 <h2><a href="/babies/<%= @baby.slug %>">Baby <%= @baby.name %></a></h2>
 
-<table>
-  <tr>
-    <th>Date</th>
-    <th>Height (inches)</th>
-    <th>Weight (lbs)</th>
-  </tr>
-  <tr>
-    <td align="center"><%= @baby.name %></td>
-    <td align="center">gsd</td>
-    <td align="center">asdfasdfasdfasdf</td>
-  </tr>
-<table>
+<h3>Edit Height and/or Weight Entry:</h3>
+
+<form action="/babies/<%= @baby.slug %>" method="POST">
+  <input type="hidden" id="hidden" name="_method" value="PATCH">
+  <input type="date" name="size[entry_date]" value="<%= @size.entry_date if @size %>">
+  <input type="number" name="size[height]" value="<%= @size.height if @size %>" step="0.1" min="0">"
+  <input type="number" name="size[weight]" value="<%= @size.weight if @size %>" step="0.1" min="0"> lbs
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
