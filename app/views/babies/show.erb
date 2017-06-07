@@ -19,7 +19,7 @@
 <h3>Height and Weight:</h3>
 <% @baby.sizes.each do |size| %>
   <ul>
-    <li><a href="/babies/<%= @baby.slug %>/size/<%= size.id %>/edit"><%= size.entry_date.strftime("%D") %>: <%= size.height %>" <%= size.weight %> lbs</a></li>
+    <li><a href="/sizes/<%= size.id %>/edit"><%= size.entry_date.strftime("%D") %>: <%= size.height %>" <%= size.weight %> lbs</a></li>
   </ul>
 <% end %>
 <br>

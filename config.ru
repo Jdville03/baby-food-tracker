@@ -7,4 +7,5 @@ end
 use Rack::MethodOverride
 use BabiesController
 use UsersController
+use SizesController
 run ApplicationController
