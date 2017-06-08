@@ -7,12 +7,11 @@
  </ul><br>
 <% end %>
 
-<h2><a href="/babies/<%= @size.baby.slug %>">Baby <%= @size.baby.name %></a></h2>
+<h2><a href="/babies/<%= @baby.slug %>">Baby <%= @baby.name %></a></h2>
 
-<h3>Edit Entry:</h3>
+<h3>Add Height and/or Weight:</h3>
 
-<form action="/sizes/<%= @size.id %>/edit" method="POST">
-  <input type="hidden" id="hidden" name="_method" value="PATCH">
+<form action="/sizes/<%= @baby.slug %>/new" method="POST">
   <table border="1">
     <tr>
       <th style="width:120px">Date</th>
@@ -29,9 +28,3 @@
   <input type="submit" value="Submit">
 </form>
 <br>
-
-<form action="/sizes/<%= @size.id %>/delete" method="POST">
-  Or if you would like to delete the entry:
-  <input type="hidden" id="hidden" name="_method" value="DELETE">
-  <input type="submit" value="Delete Entry">
-</form>

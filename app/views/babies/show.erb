@@ -3,16 +3,14 @@
 <h3>Birthdate: <%= @baby.birthdate.strftime("%B %-d, %Y") %></h3>
 
 <h3>Caretakers:</h3>
-<% @baby.users.each do |user| %>
-  <ul>
-    <% if user.id == current_user.id %>
-      <li><a href="/users/<%= user.slug %>"><%= user.name %></a></li>
-    <% else %>
+<ul>
+  <li><a href="/users/<%= current_user.slug %>"><%= current_user.name %></a></li>
+  <% @baby.users.sort_by{|user| user.name.split(" ").last}.each do |user| %>
+    <% if user != current_user %>
       <li><%= user.name %></li>
     <% end %>
-  </ul>
-<% end %>
-<br>
+  <% end %>
+</ul>
 
 <h3>Meals:</h3>
 
@@ -32,15 +30,15 @@
   <% end %>
 </table>
 <br>
-<p>Click on date to edit entry or <a href="/babies/<%= @baby.slug %>/size">add an entry</a>.</p>
+<% if @baby.sizes.empty? %>
+  <p><a href="/sizes/<%= @baby.slug %>/new">Add an entry</a></p>
+<% else %>
+  <p>Click on date to edit entry or <a href="/sizes/<%= @baby.slug %>/new">add an entry</a>.</p>
+<% end %>
 
-
-
-
-<p>
+<form action="/babies/<%= @baby.slug %>/delete" method="POST">
   If you would like to remove <%= @baby.name.split(" ").first %> from your list of babies, click below (<%= @baby.name.split(" ").first %> will remain visible to his or her other caretakers):
-  <form action="/babies/<%= @baby.slug %>/delete" method="POST">
-    <input type="hidden" id="hidden" name="_method" value="DELETE">
-    <input type="submit" value="Remove Baby">
-  </form>
-</p>
+  <br>
+  <input type="hidden" id="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Remove Baby">
+</form>

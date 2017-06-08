@@ -1,34 +1,28 @@
 class BabiesController < ApplicationController
 
-  # GET: /babies
-  #get "/babies" do
-  #  erb :"/babies/index"
-  #end
-
-  # GET: /babies/new
-  get '/babies/add-new' do
+  get '/babies/new' do
     redirect_if_not_logged_in
-    erb :'babies/add_new'
+    erb :'babies/new'
   end
 
-  get '/babies/add-existing' do
+  get '/babies/existing' do
     redirect_if_not_logged_in
     @error_message = params[:error]
-    erb :'babies/add_existing'
+    erb :'babies/existing'
   end
 
-  post '/babies/add-new' do
+  post '/babies/new' do
     redirect_if_not_logged_in
     @baby = current_user.babies.create(params)
     if @baby.save
       redirect "/users/#{current_user.slug}"
     else
       # view can access @baby in order to display validation failures with error messages
-      erb :'babies/add_new'
+      erb :'babies/new'
     end
   end
 
-  post '/babies/add-existing' do
+  post '/babies/existing' do
     redirect_if_not_logged_in
     if baby = Baby.find_by(name: params[:name]).try(:authenticate, params[:password])
       if current_user.babies.include?(baby)
@@ -40,7 +34,7 @@ class BabiesController < ApplicationController
       end
     else
       # error message displayed in view if name and password (PIC) are not valid
-      redirect '/babies/add-existing?error=The Name and PIC combination is not valid. Please try again.'
+      redirect '/babies/existing?error=The Name and PIC combination is not valid. Please try again.'
     end
   end
 
@@ -65,15 +59,6 @@ class BabiesController < ApplicationController
   end
 
 
-  # POST: /babies
-  #post "/babies" do
-  #  redirect "/babies"
-  #end
-
-  # GET: /babies/5
-  #get "/babies/:id" do
-  #  erb :"/babies/show"
-  #end
 
   # GET: /babies/5/edit
   get "/babies/:id/edit" do
@@ -85,8 +70,4 @@ class BabiesController < ApplicationController
     redirect "/babies/:id"
   end
 
-  # DELETE: /babies/5/delete
-  #delete "/babies/:id/delete" do
-  #  redirect "/babies"
-  #end
 end
