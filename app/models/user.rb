@@ -7,7 +7,6 @@ class User < ActiveRecord::Base
   has_secure_password
 
   extend Slugifiable::ClassMethods
-  #include Slugifiable::InstanceMethods
 
   def slug
     self.username.downcase.gsub(/[\s\W]/, "-")
