@@ -1,12 +1,21 @@
+<% if @size && @size.errors.any? %>
+  Please try again:<br><br>
+  <ul>
+   <% @size.errors.full_messages.each do |msg| %>
+     <li><%= msg %></li>
+   <% end %>
+ </ul><br>
+<% end %>
+
 <h2><a href="/babies/<%= @size.baby.slug %>">Baby <%= @size.baby.name %></a></h2>
 
 <h3>Edit Height and/or Weight Entry:</h3>
 
 <form action="/sizes/<%= @size.id %>" method="POST">
   <input type="hidden" id="hidden" name="_method" value="PATCH">
-  <input type="date" name="size[entry_date]" value="<%= @size.entry_date if @size %>">
-  <input type="number" name="size[height]" value="<%= @size.height if @size %>" step="0.1" min="0">"
-  <input type="number" name="size[weight]" value="<%= @size.weight if @size %>" step="0.1" min="0"> lbs
+  <input type="date" name="size[entry_date]" id="date" value="<%= @size.entry_date if @size %>" required>
+  <input type="number" name="size[height]" id="number" value="<%= @size.height if @size %>" step="0.1" min="0">"
+  <input type="number" name="size[weight]" id="number" value="<%= @size.weight if @size %>" step="0.1" min="0"> lbs
   <br><br>
   <input type="submit" value="Submit">
 </form>

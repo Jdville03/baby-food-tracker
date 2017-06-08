@@ -81,6 +81,14 @@
     margin-top: 20px;
     padding-top: 20px;
   }
+
+  #number {
+    width: 50px;
+  }
+
+  #date {
+    width: 120px;
+  }
 }
 
 @media screen and (max-width: 600px) {
