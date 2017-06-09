@@ -24,11 +24,13 @@ ActiveRecord::Schema.define(version: 20170524034410) do
   create_table "meals", force: :cascade do |t|
     t.datetime "entry_datetime"
     t.string   "food_type"
-    t.string   "amount_duration"
+    t.decimal  "amount"
+    t.decimal  "duration"
+    t.string   "ingredients"
     t.text     "notes"
     t.integer  "baby_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "sizes", force: :cascade do |t|

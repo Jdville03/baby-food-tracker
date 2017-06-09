@@ -3,7 +3,9 @@ class CreateMeals < ActiveRecord::Migration
     create_table :meals do |t|
       t.datetime :entry_datetime
       t.string :food_type
-      t.string :amount_duration
+      t.decimal :amount
+      t.decimal :duration
+      t.string :ingredients
       t.text :notes
       t.integer :baby_id
       t.timestamps null: false
