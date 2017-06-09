@@ -86,7 +86,7 @@
     width: 50px;
   }
 
-  #date {
+  #date, #time {
     width: 120px;
   }
 }

@@ -20,9 +20,9 @@
       <th style="width:100px">Weight (lbs)</th>
     </tr>
     <tr>
-      <td align="center"><input type="date" name="entry_date" id="date" value="<%= @size.entry_date if @size %>" max="<%= Date.current %>" required></td>
-      <td align="center"><input type="number" name="height" id="number" value="<%= @size.height if @size %>" step="0.1" min="0.1"></td>
-      <td align="center"><input type="number" name="weight" id="number" value="<%= @size.weight if @size %>" step="0.1" min="0.1"></td>
+      <td align="center"><input type="date" name="entry_date" id="date" value="<%= @size.entry_date %>" max="<%= Date.current %>" required></td>
+      <td align="center"><input type="number" name="height" id="number" value="<%= @size.height %>" step="0.1" min="0.1"></td>
+      <td align="center"><input type="number" name="weight" id="number" value="<%= @size.weight %>" step="0.1" min="0.1"></td>
     </tr>
   </table>
   <br>
@@ -31,7 +31,7 @@
 <br>
 
 <form action="/sizes/<%= @size.id %>/delete" method="POST">
-  Or if you would like to delete the entry:
+  Or if you would like to delete the entry, click here:
   <input type="hidden" id="hidden" name="_method" value="DELETE">
   <input type="submit" value="Delete Entry">
 </form>

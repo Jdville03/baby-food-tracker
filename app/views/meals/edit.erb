@@ -1,3 +1,12 @@
+<% if @meal && @meal.errors.any? %>
+  Please try again:<br><br>
+  <ul>
+   <% @meal.errors.full_messages.each do |msg| %>
+     <li><%= msg %></li>
+   <% end %>
+ </ul><br>
+<% end %>
+
 <h2><a href="/babies/<%= @meal.baby.slug %>">Baby <%= @meal.baby.name %></a></h2>
 
 <h3>Selected Meal:</h3>
@@ -6,7 +15,8 @@
   <input type="hidden" id="hidden" name="_method" value="PATCH">
   <table border="1">
     <tr>
-      <th style="width:160px">Date - Time</th>
+      <th style="width:120px">Date</th>
+      <th style="width:120px">Time</th>
       <th style="width:160px">Food Type</th>
       <% if @meal.food_type == "breast milk (breast)" %>
         <th style="width:160px">Duration (mins)</th>
@@ -17,12 +27,20 @@
       <% end %>
     </tr>
     <tr>
-      <td align="center"><input type="datetime-local" name="entry_datetime" id="datetime" value="<%= @meal.entry_datetime if @meal %>" max="<%= Time.current %>" required></td>
-      <td align="center"><input type="text" name="food_type" value="<%= @meal.food_type if @meal %>" required></td>
+      <td align="center"><input type="date" name="entry_date" id="date" value="<%= @meal.entry_date %>" max="<%= Date.current %>" required></td>
+      <td align="center"><input type="time" name="entry_time" id="time" value="<%= @meal.entry_time.strftime("%R") %>" required></td>
+      <td align="center">
+        <select name="food_type" required>
+          <option value="breast milk (breast)" <%= "selected" if @meal.food_type == "breast milk (breast)" %>>breast milk (breast)</option>
+          <option value="breast milk (bottle)" <%= "selected" if @meal.food_type == "breast milk (bottle)" %>>breast milk (bottle)</option>
+          <option value="formula" <%= "selected" if @meal.food_type == "formula" %>>formula</option>
+          <option value="solids" <%= "selected" if @meal.food_type == "solids" %>>solids</option>
+        </select>
+      </td>
       <% if @meal.food_type == "breast milk (breast)" %>
-        <td align="center"><input type="number" name="duration" id="number" value="<%= @meal.duration if @meal %>" step="0.25" min="0.25" required></td>
+        <td align="center"><input type="number" name="duration" id="number" value="<%= @meal.duration %>" step="0.25" min="0.25" required></td>
       <% elsif @meal.food_type == "breast milk (bottle)" || @meal.food_type == "formula" %>
-        <td align="center"><input type="number" name="amount" id="number" value="<%= @meal.amount if @meal %>" step="0.25" min="0.25" required></td>
+        <td align="center"><input type="number" name="amount" id="number" value="<%= @meal.amount %>" step="0.25" min="0.25" required></td>
       <% elsif @meal.food_type == "solids" %>
         <td align="center"><input type="text" name="ingredients" value="<%= @meal.ingredients %>" required></td>
       <% end %>
@@ -31,7 +49,15 @@
   <br>
   <label for="notes">Notes (optional):</label>
   <br>
-  <textarea id="notes" name="notes" rows="5" cols="50"><%= @meal.notes if @meal %></textarea>
+  <textarea id="notes" name="notes" rows="5" cols="50"><%= @meal.notes %></textarea>
   <br><br>
+  You may update the entry by editing any of the fields and clicking here:
   <input type="submit" value="Update Entry">
+</form>
+<br>
+
+<form action="/meals/<%= @meal.id %>/delete" method="POST">
+  Or if you would like to delete the entry, click here:
+  <input type="hidden" id="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete Entry">
 </form>

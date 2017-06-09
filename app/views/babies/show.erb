@@ -17,13 +17,17 @@
   <tr>
     <th style="width:100px">Date</th>
     <th style="width:100px">Time</th>
-    <th style="width:160px">Food Type</th>
+    <th style="width:200px">Food Type</th>
   </tr>
   <% @baby.meals.sort_by{|meal| [meal.entry_date, meal.entry_time]}.each do |meal| %>
     <tr>
       <td align="center"><a href="/meals/<%= meal.id %>/edit"><%= meal.entry_date.strftime("%D") %></a></td>
       <td align="center"><%= meal.entry_time.strftime("%l:%M %p") %></td>
-      <td align="center"><%= meal.food_type %></td>
+      <% if meal.food_type == "solids" %>
+        <td align="center"><%= meal.food_type %> (<%= meal.ingredients %>)</td>
+      <% else %>
+        <td align="center"><%= meal.food_type %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>
@@ -31,7 +35,7 @@
 <% if @baby.meals.empty? %>
   <p><a href="/meals/<%= @baby.slug %>/new">Add an entry</a></p>
 <% else %>
-  <p>Click on date to see more entry information or <a href="/meals/<%= @baby.slug %>/new">add an entry</a>.</p>
+  <p>Click on date to see more information or <a href="/meals/<%= @baby.slug %>/new">add an entry</a>.</p>
 <% end %>
 
 <h3>Growth:</h3>
@@ -57,8 +61,7 @@
 <% end %>
 
 <form action="/babies/<%= @baby.slug %>/delete" method="POST">
-  If you would like to remove <%= @baby.name.split(" ").first %> from your list of babies, click below (<%= @baby.name.split(" ").first %> will remain visible to his or her other caretakers):
-  <br>
+  If you would like to remove <%= @baby.name.split(" ").first %> from your list of babies, click here (<%= @baby.name.split(" ").first %> will remain visible to his or her other caretakers):
   <input type="hidden" id="hidden" name="_method" value="DELETE">
   <input type="submit" value="Remove Baby">
 </form>
