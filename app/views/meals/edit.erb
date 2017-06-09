@@ -1,0 +1,37 @@
+<h2><a href="/babies/<%= @meal.baby.slug %>">Baby <%= @meal.baby.name %></a></h2>
+
+<h3>Selected Meal:</h3>
+
+<form action="/meals/<%= @meal.id %>/edit" method="POST">
+  <input type="hidden" id="hidden" name="_method" value="PATCH">
+  <table border="1">
+    <tr>
+      <th style="width:160px">Date - Time</th>
+      <th style="width:160px">Food Type</th>
+      <% if @meal.food_type == "breast milk (breast)" %>
+        <th style="width:160px">Duration (mins)</th>
+      <% elsif @meal.food_type == "breast milk (bottle)" || @meal.food_type == "formula"%>
+        <th style="width:160px">Amount (oz)</th>
+      <% elsif @meal.food_type == "solids" %>
+        <th style="width:160px">Ingredient(s)</th>
+      <% end %>
+    </tr>
+    <tr>
+      <td align="center"><input type="datetime-local" name="entry_datetime" id="datetime" value="<%= @meal.entry_datetime if @meal %>" max="<%= Time.current %>" required></td>
+      <td align="center"><input type="text" name="food_type" value="<%= @meal.food_type if @meal %>" required></td>
+      <% if @meal.food_type == "breast milk (breast)" %>
+        <td align="center"><input type="number" name="duration" id="number" value="<%= @meal.duration if @meal %>" step="0.25" min="0.25" required></td>
+      <% elsif @meal.food_type == "breast milk (bottle)" || @meal.food_type == "formula" %>
+        <td align="center"><input type="number" name="amount" id="number" value="<%= @meal.amount if @meal %>" step="0.25" min="0.25" required></td>
+      <% elsif @meal.food_type == "solids" %>
+        <td align="center"><input type="text" name="ingredients" value="<%= @meal.ingredients %>" required></td>
+      <% end %>
+    </tr>
+  </table>
+  <br>
+  <label for="notes">Notes (optional):</label>
+  <br>
+  <textarea id="notes" name="notes" rows="5" cols="50"><%= @meal.notes if @meal %></textarea>
+  <br><br>
+  <input type="submit" value="Update Entry">
+</form>

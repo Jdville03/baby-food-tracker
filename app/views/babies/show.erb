@@ -13,6 +13,24 @@
 </ul>
 
 <h3>Meals:</h3>
+<table border="1">
+  <tr>
+    <th style="width:160px">Date - Time</th>
+    <th style="width:160px">Food Type</th>
+  </tr>
+  <% @baby.meals.sort_by{|meal| meal.entry_datetime}.each do |meal| %>
+    <tr>
+      <td align="center"><a href="/meals/<%= meal.id %>/edit"><%= meal.entry_datetime.strftime("%D - %l:%M %p") %></a></td>
+      <td align="center"><%= meal.food_type %></td>
+    </tr>
+  <% end %>
+</table>
+<br>
+<% if @baby.meals.empty? %>
+  <p><a href="/meals/<%= @baby.slug %>/new">Add an entry</a></p>
+<% else %>
+  <p>Click on date to see more information or <a href="/meals/<%= @baby.slug %>/new">add an entry</a>.</p>
+<% end %>
 
 <h3>Growth:</h3>
 <table border="1">
