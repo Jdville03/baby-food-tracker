@@ -8,4 +8,5 @@ use Rack::MethodOverride
 use BabiesController
 use UsersController
 use SizesController
+use MealsController
 run ApplicationController
