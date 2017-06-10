@@ -47,7 +47,14 @@ class MealsController < ApplicationController
   end
 
   get '/meals/:slug/new' do
-    
+    redirect_if_not_logged_in
+    @baby = current_user.babies.find_by_slug(params[:slug])
+    # user may only add meal for baby that belongs to user
+    if @baby
+      erb :'meals/new'
+    else
+      redirect "/users/#{current_user.slug}?error=You may only add entries for your own babies."
+    end
   end
 
   post '/meals/:slug/new' do
