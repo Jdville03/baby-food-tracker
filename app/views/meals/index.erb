@@ -1,8 +1,22 @@
 <h2><a href="/babies/<%= @baby.slug %>">Baby <%= @baby.name %></a></h2>
 
 <h3>Meals:</h3>
-<% if @baby.meals.empty? %>
-  <p><a href="/meals/<%= @baby.slug %>/new">Add a new feeding</a></p>
+
+<form action="/meals/<%= @baby.slug %>" method="POST">
+  <select name="time_frame" required>
+    <option value="today" <%= "selected" if @time_frame == "today" %>>today</option>
+    <option value="last_3_days" <%= "selected" if @time_frame == "last_3_days" %>>last 3 days</option>
+    <option value="week" <%= "selected" if @time_frame == "week" %>>this calendar week (Mon - Sun)</option>
+    <option value="last_7_days" <%= "selected" if @time_frame == "last_7_days" %>>last 7 days</option>
+    <option value="month" <%= "selected" if @time_frame == "month" %>>this calendar month</option>
+    <option value="all" <%= "selected" if @time_frame == "all" %>>all</option>
+  </select>
+  <input type="submit" value="View Meals">
+</form>
+<br>
+
+<% if @meals.empty? %>
+  <p>Select a different time frame or <a href="/meals/<%= @baby.slug %>/new">add a new feeding</a>.</p>
 <% else %>
   <table border="1">
     <tr>
@@ -10,10 +24,15 @@
       <th style="width:100px">Time</th>
       <th>Food Type</th>
     </tr>
-    <% @baby.meals.sort_by{|meal| [meal.entry_date, meal.entry_time]}.reverse.each do |meal| %>
+    <% sorted_meals = @meals.sort_by{|meal| [meal.entry_date, meal.entry_time]}.reverse %>
+    <% sorted_meals.each_with_index do |meal, index| %>
       <tr>
-        <td align="center"><a href="/meals/<%= meal.id %>/edit"><%= meal.entry_date.strftime("%D") %></a></td>
-        <td align="center"><%= meal.entry_time.strftime("%l:%M %p") %></td>
+        <% if index == 0 || meal.entry_date != sorted_meals[index - 1].entry_date %>
+          <td align="center"><%= meal.entry_date.strftime("%D") %></td>
+        <% else %>
+          <td></td>
+        <% end %>
+        <td align="center"><a href="/meals/<%= meal.id %>/edit"><%= meal.entry_time.strftime("%l:%M %p") %></a></td>
         <% if meal.food_type == "solids" %>
           <td align="center"><%= meal.food_type %> (<%= meal.ingredients %>)</td>
         <% else %>
@@ -23,5 +42,5 @@
     <% end %>
   </table>
   <br>
-  <p>Click on date to see more information or <a href="/meals/<%= @baby.slug %>/new">add a new feeding</a>.</p>
+  <p>Click on time to see more information or <a href="/meals/<%= @baby.slug %>/new">add a new feeding</a>.</p>
 <% end %>

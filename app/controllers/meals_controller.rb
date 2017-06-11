@@ -60,6 +60,40 @@ class MealsController < ApplicationController
     @baby = current_user.babies.find_by_slug(params[:slug])
     # user may only view meals for baby that belongs to user
     if @baby
+      # default view of meals is current calendar week
+      @meals = @baby.meals.select{|meal| meal.entry_date.cweek == Date.current.cweek && meal.entry_date.cwyear == Date.current.cwyear}
+      @time_frame = "week"
+      erb :'meals/index'
+    else
+      redirect "/users/#{current_user.slug}?error=You may only view entries for your own babies."
+    end
+  end
+
+  post '/meals/:slug' do
+    redirect_if_not_logged_in
+    @baby = current_user.babies.find_by_slug(params[:slug])
+    # user may only view meals for baby that belongs to user
+    if @baby
+      case params[:time_frame]
+      when "today"
+        @meals = @baby.meals.select{|meal| meal.entry_date == Date.current}
+        @time_frame = "today"
+      when "last_3_days"
+        @meals = @baby.meals.select{|meal| meal.entry_date > Date.current - 3}
+        @time_frame = "last_3_days"
+      when "week"
+        @meals = @baby.meals.select{|meal| meal.entry_date.cweek == Date.current.cweek && meal.entry_date.cwyear == Date.current.cwyear}
+        @time_frame = "week"
+      when "last_7_days"
+        @meals = @baby.meals.select{|meal| meal.entry_date > Date.current - 7}
+        @time_frame = "last_7_days"
+      when "month"
+        @meals = @baby.meals.select{|meal| meal.entry_date.month == Date.current.month && meal.entry_date.year == Date.current.year}
+        @time_frame = "month"
+      when "all"
+        @meals = @baby.meals
+        @time_frame = "all"
+      end
       erb :'meals/index'
     else
       redirect "/users/#{current_user.slug}?error=You may only view entries for your own babies."
