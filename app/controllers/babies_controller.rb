@@ -54,8 +54,12 @@ class BabiesController < ApplicationController
     redirect_if_not_logged_in
     baby = current_user.babies.find_by_slug(params[:slug])
     # user may only remove baby from own profile (baby will still remain visible to its other users)
-    current_user.babies.delete(baby.id) if baby
-    redirect "/users/#{current_user.slug}"
+    if baby
+      current_user.babies.delete(baby)
+      redirect "/users/#{current_user.slug}"
+    else
+      redirect "/users/#{current_user.slug}?error=You may only remove your own babies from the list of babies under your care."
+    end
   end
 
 

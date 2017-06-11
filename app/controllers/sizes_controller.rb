@@ -34,8 +34,12 @@ class SizesController < ApplicationController
     redirect_if_not_logged_in
     size = Size.find_by_id(params[:id])
     # user may only delete size of baby that belongs to user
-    size.delete if size && current_user.babies.include?(size.baby)
-    redirect "/babies/#{size.baby.slug}"
+    if size && current_user.babies.include?(size.baby)
+      size.delete
+      redirect "/babies/#{size.baby.slug}"
+    else
+      redirect "/users/#{current_user.slug}?error=You may only delete entries for your own babies."
+    end
   end
 
   get '/sizes/:slug/new' do
@@ -54,7 +58,7 @@ class SizesController < ApplicationController
     @baby = current_user.babies.find_by_slug(params[:slug])
     # user may only add size of baby that belongs to user
     if @baby
-      @size = Size.create(entry_date: params[:entry_date], height: params[:height], weight: params[:weight], baby: @baby)
+      @size = @baby.sizes.create(params[:size])
       if @size.save
         redirect "/babies/#{@baby.slug}"
       else

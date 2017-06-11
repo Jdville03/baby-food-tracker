@@ -63,7 +63,7 @@
 <br>
 
 <form action="/babies/<%= @baby.slug %>/delete" method="POST">
-  If you would like to remove <%= @baby.name.split(" ").first %> from your list of babies, click here (<%= @baby.name.split(" ").first %> will remain visible to his or her other caretakers):
+  If you would like to remove <%= @baby.name.split(" ").first %> from the list of babies under your care, click here (<%= @baby.name.split(" ").first %> will remain visible to his or her other caregivers):
   <input type="hidden" id="hidden" name="_method" value="DELETE">
   <input type="submit" value="Remove Baby">
 </form>

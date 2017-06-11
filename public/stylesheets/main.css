@@ -89,6 +89,11 @@
   #date, #time {
     width: 120px;
   }
+
+  #ingredients {
+    width: 160px;
+  }
+
 }
 
 @media screen and (max-width: 600px) {
