@@ -44,6 +44,7 @@ class BabiesController < ApplicationController
     @baby = current_user.babies.find_by_slug(params[:slug])
     # user may only view show page of baby that belongs to the user
     if @baby
+      @last_meal = @baby.meals.sort_by{|meal| [meal.entry_date, meal.entry_time]}.last
       erb :'babies/show'
     else
       redirect "/users/#{current_user.slug}?error=You may only view your own babies."

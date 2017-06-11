@@ -1,9 +1,5 @@
 class MealsController < ApplicationController
 
-  get '/meals' do
-
-  end
-
   get '/meals/:id/edit' do
     redirect_if_not_logged_in
     @meal = Meal.find_by_id(params[:id])
@@ -37,7 +33,7 @@ class MealsController < ApplicationController
       end
       @meal.notes = params[:notes]
       if @meal.save
-        redirect "/babies/#{@meal.baby.slug}"
+        redirect "/meals/#{@meal.baby.slug}"
       else
         # view can access @meal in order to display validation failures with error messages
         erb :'meals/edit'
@@ -53,9 +49,20 @@ class MealsController < ApplicationController
     # user may only delete meal of baby that belongs to user
     if meal && current_user.babies.include?(meal.baby)
       meal.delete
-      redirect "/babies/#{meal.baby.slug}"
+      redirect "/meals/#{meal.baby.slug}"
     else
       redirect "/users/#{current_user.slug}?error=You may only delete entries for your own babies."
+    end
+  end
+
+  get '/meals/:slug' do
+    redirect_if_not_logged_in
+    @baby = current_user.babies.find_by_slug(params[:slug])
+    # user may only view meals for baby that belongs to user
+    if @baby
+      erb :'meals/index'
+    else
+      redirect "/users/#{current_user.slug}?error=You may only view entries for your own babies."
     end
   end
 
@@ -79,7 +86,7 @@ class MealsController < ApplicationController
       # when amount is optional: if user selects amount_type without entering an amount, amount_type is set to nil
       @meal.amount_type = nil if !@meal.amount
       if @meal.save
-        redirect "/babies/#{@baby.slug}"
+        redirect "/meals/#{@baby.slug}"
       else
         # view can access @baby and @meal in order to display validation failures with error messages
         erb :'meals/new'

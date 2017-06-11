@@ -19,7 +19,7 @@
       <th>Time</th>
       <th>Food Type</th>
       <% if @meal.food_type == "breast milk (breast)" %>
-        <th>Duration (mins)</th>
+        <th>Duration</th>
       <% elsif @meal.food_type == "breast milk (bottle)" || @meal.food_type == "formula" %>
         <th>Amount</th>
       <% elsif @meal.food_type == "solids" %>
@@ -40,7 +40,7 @@
         </select>
       </td>
       <% if @meal.food_type == "breast milk (breast)" %>
-        <td align="center"><input type="number" name="duration" id="number" value="<%= @meal.duration %>" step="0.25" min="0.25" required></td>
+        <td align="center"><input type="number" name="duration" id="number" value="<%= @meal.duration %>" step="0.25" min="0.25" required>min</td>
       <% elsif @meal.food_type == "breast milk (bottle)" || @meal.food_type == "formula" %>
         <td align="center">
           <input type="number" name="amount" id="number" value="<%= @meal.amount %>" step="0.25" min="0.25" required>

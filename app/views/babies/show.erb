@@ -14,32 +14,52 @@
 <br>
 
 <h3>Last Feeding:</h3>
-
-
-
-<table border="1">
-  <tr>
-    <th style="width:100px">Date</th>
-    <th style="width:100px">Time</th>
-    <th>Food Type</th>
-  </tr>
-  <% @baby.meals.sort_by{|meal| [meal.entry_date, meal.entry_time]}.each do |meal| %>
+<% if @baby.meals.empty? %>
+  <p><a href="/meals/<%= @baby.slug %>/new">Add a new feeding</a></p>
+<% else %>
+  <table border="1">
     <tr>
-      <td align="center"><a href="/meals/<%= meal.id %>/edit"><%= meal.entry_date.strftime("%D") %></a></td>
-      <td align="center"><%= meal.entry_time.strftime("%l:%M %p") %></td>
-      <% if meal.food_type == "solids" %>
-        <td align="center"><%= meal.food_type %> (<%= meal.ingredients %>)</td>
-      <% else %>
-        <td align="center"><%= meal.food_type %></td>
+      <% if @last_meal.entry_date != Date.current %>
+        <th style="width:100px">Date</th>
+      <% end %>
+      <th style="width:100px">Time</th>
+      <th style="width:120px">Food Type</th>
+      <% if @last_meal.food_type == "breast milk (breast)" %>
+        <th style="width:100px">Duration</th>
+      <% elsif @last_meal.food_type == "breast milk (bottle)" || @last_meal.food_type == "formula" %>
+        <th style="width:100px">Amount</th>
+      <% elsif @last_meal.food_type == "solids" %>
+        <th style="width:120px">Ingredient(s)</th>
+        <% if @last_meal.amount %>
+          <th style="width:100px">Amount</th>
+        <% end %>
       <% end %>
     </tr>
+    <tr>
+      <% if @last_meal.entry_date != Date.current %>
+        <td align="center"><%= @last_meal.entry_date.strftime("%D") %></td>
+      <% end %>
+      <td align="center"><%= @last_meal.entry_time.strftime("%l:%M %p") %></td>
+      <td align="center"><%= @last_meal.food_type %></td>
+      <% if @last_meal.food_type == "breast milk (breast)" %>
+        <td align="center"><%= @last_meal.duration %> min</td>
+      <% elsif @last_meal.food_type == "breast milk (bottle)" || @last_meal.food_type == "formula" %>
+        <td align="center"><%= @last_meal.amount %> <%= @last_meal.amount_type %></td>
+      <% elsif @last_meal.food_type == "solids" %>
+        <td align="center"><%= @last_meal.ingredients %></td>
+        <% if @last_meal.amount %>
+          <td align="center"><%= @last_meal.amount %> <%= @last_meal.amount_type %></th>
+        <% end %>
+      <% end %>
+    </tr>
+  </table>
+  <br>
+  <% unless @last_meal.notes.empty? %>
+    <p>Notes:<br><%= @last_meal.notes %></p>
   <% end %>
-</table>
-<br>
-<% if @baby.meals.empty? %>
-  <p><a href="/meals/<%= @baby.slug %>/new">Add an entry</a></p>
-<% else %>
-  <p>Click on date to see more information or <a href="/meals/<%= @baby.slug %>/new">add an entry</a>.</p>
+  <p>
+    <a href="/meals/<%= @baby.slug %>">View meals history</a> or <a href="/meals/<%= @baby.slug %>/new">add a new feeding</a>.
+  </p>
 <% end %>
 
 <h3>Growth:</h3>

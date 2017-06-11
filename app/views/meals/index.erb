@@ -1,25 +1,27 @@
+<h2><a href="/babies/<%= @baby.slug %>">Baby <%= @baby.name %></a></h2>
+
 <h3>Meals:</h3>
-<table border="1">
-  <tr>
-    <th style="width:100px">Date</th>
-    <th style="width:100px">Time</th>
-    <th>Food Type</th>
-  </tr>
-  <% @baby.meals.sort_by{|meal| [meal.entry_date, meal.entry_time]}.each do |meal| %>
-    <tr>
-      <td align="center"><a href="/meals/<%= meal.id %>/edit"><%= meal.entry_date.strftime("%D") %></a></td>
-      <td align="center"><%= meal.entry_time.strftime("%l:%M %p") %></td>
-      <% if meal.food_type == "solids" %>
-        <td align="center"><%= meal.food_type %> (<%= meal.ingredients %>)</td>
-      <% else %>
-        <td align="center"><%= meal.food_type %></td>
-      <% end %>
-    </tr>
-  <% end %>
-</table>
-<br>
 <% if @baby.meals.empty? %>
-  <p><a href="/meals/<%= @baby.slug %>/new">Add an entry</a></p>
+  <p><a href="/meals/<%= @baby.slug %>/new">Add a new feeding</a></p>
 <% else %>
-  <p>Click on date to see more information or <a href="/meals/<%= @baby.slug %>/new">add an entry</a>.</p>
+  <table border="1">
+    <tr>
+      <th style="width:100px">Date</th>
+      <th style="width:100px">Time</th>
+      <th>Food Type</th>
+    </tr>
+    <% @baby.meals.sort_by{|meal| [meal.entry_date, meal.entry_time]}.reverse.each do |meal| %>
+      <tr>
+        <td align="center"><a href="/meals/<%= meal.id %>/edit"><%= meal.entry_date.strftime("%D") %></a></td>
+        <td align="center"><%= meal.entry_time.strftime("%l:%M %p") %></td>
+        <% if meal.food_type == "solids" %>
+          <td align="center"><%= meal.food_type %> (<%= meal.ingredients %>)</td>
+        <% else %>
+          <td align="center"><%= meal.food_type %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+  <br>
+  <p>Click on date to see more information or <a href="/meals/<%= @baby.slug %>/new">add a new feeding</a>.</p>
 <% end %>
