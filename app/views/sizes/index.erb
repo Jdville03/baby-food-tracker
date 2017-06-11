@@ -1,0 +1,24 @@
+<h2><a href="/babies/<%= @baby.slug %>">Baby <%= @baby.name %></a></h2>
+
+<h3>Growth History:</h3>
+
+<% if @baby.sizes.empty? %>
+  <p><a href="/sizes/<%= @baby.slug %>/new">Add a new entry</a></p>
+<% else %>
+  <table border="1">
+    <tr>
+      <th style="width:100px">Date</th>
+      <th style="width:100px">Height (")</th>
+      <th style="width:100px">Weight (lbs)</th>
+    </tr>
+    <% @baby.sizes.sort_by{|size| size.entry_date}.reverse.each do |size| %>
+      <tr>
+        <td align="center"><a href="/sizes/<%= size.id %>/edit"><%= size.entry_date.strftime("%D") %></a></td>
+        <td align="center"><%= size.height %></td>
+        <td align="center"><%= size.weight %></td>
+      </tr>
+    <% end %>
+  </table>
+  <br>
+  <p>Click on date to edit entry or <a href="/sizes/<%= @baby.slug %>/new">add a new entry</a>.</p>
+<% end %>

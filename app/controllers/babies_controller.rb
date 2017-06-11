@@ -40,11 +40,11 @@ class BabiesController < ApplicationController
 
   get '/babies/:slug' do
     redirect_if_not_logged_in
-    #@error_message = params[:error]
     @baby = current_user.babies.find_by_slug(params[:slug])
     # user may only view show page of baby that belongs to the user
     if @baby
       @last_meal = @baby.meals.sort_by{|meal| [meal.entry_date, meal.entry_time]}.last
+      @last_size = @baby.sizes.sort_by{|size| size.entry_date}.last
       erb :'babies/show'
     else
       redirect "/users/#{current_user.slug}?error=You may only view your own babies."

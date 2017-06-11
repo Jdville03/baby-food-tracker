@@ -1,6 +1,6 @@
 <h2><a href="/babies/<%= @baby.slug %>">Baby <%= @baby.name %></a></h2>
 
-<h3>Meals:</h3>
+<h3>Meals History:</h3>
 
 <form action="/meals/<%= @baby.slug %>" method="POST">
   <select name="time_frame" required>
@@ -22,7 +22,7 @@
     <tr>
       <th style="width:100px">Date</th>
       <th style="width:100px">Time</th>
-      <th>Food Type</th>
+      <th style="width:120px">Food Type</th>
     </tr>
     <% sorted_meals = @meals.sort_by{|meal| [meal.entry_date, meal.entry_time]}.reverse %>
     <% sorted_meals.each_with_index do |meal, index| %>

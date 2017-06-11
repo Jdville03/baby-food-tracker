@@ -19,9 +19,7 @@
 <% else %>
   <table border="1">
     <tr>
-      <% if @last_meal.entry_date != Date.current %>
-        <th style="width:100px">Date</th>
-      <% end %>
+      <th style="width:100px">Date</th>
       <th style="width:100px">Time</th>
       <th style="width:120px">Food Type</th>
       <% if @last_meal.food_type == "breast milk (breast)" %>
@@ -36,9 +34,12 @@
       <% end %>
     </tr>
     <tr>
-      <% if @last_meal.entry_date != Date.current %>
-        <td align="center"><%= @last_meal.entry_date.strftime("%D") %></td>
-      <% end %>
+      <td align="center">
+        <%= @last_meal.entry_date.strftime("%D") %>
+        <% if @last_meal.entry_date == Date.current %>
+          <br>(today)
+        <% end %>
+      </td>
       <td align="center"><%= @last_meal.entry_time.strftime("%l:%M %p") %></td>
       <td align="center"><%= @last_meal.food_type %></td>
       <% if @last_meal.food_type == "breast milk (breast)" %>
@@ -62,26 +63,31 @@
   </p>
 <% end %>
 
-<h3>Growth:</h3>
-<table border="1">
-  <tr>
-    <th style="width:100px">Date</th>
-    <th style="width:100px">Height (")</th>
-    <th style="width:100px">Weight (lbs)</th>
-  </tr>
-  <% @baby.sizes.sort_by{|size| size.entry_date}.each do |size| %>
-    <tr>
-      <td align="center"><a href="/sizes/<%= size.id %>/edit"><%= size.entry_date.strftime("%D") %></a></td>
-      <td align="center"><%= size.height %></td>
-      <td align="center"><%= size.weight %></td>
-    </tr>
-  <% end %>
-</table>
-<br>
+<h3>Last Measurement:</h3>
 <% if @baby.sizes.empty? %>
-  <p><a href="/sizes/<%= @baby.slug %>/new">Add an entry</a></p>
+  <p><a href="/sizes/<%= @baby.slug %>/new">Add a new entry</a></p>
 <% else %>
-  <p>Click on date to edit entry or <a href="/sizes/<%= @baby.slug %>/new">add an entry</a>.</p>
+  <table border="1">
+    <tr>
+      <th style="width:100px">Date</th>
+      <th style="width:100px">Height (")</th>
+      <th style="width:100px">Weight (lbs)</th>
+    </tr>
+    <tr>
+      <td align="center">
+        <%= @last_size.entry_date.strftime("%D") %>
+        <% if @last_size.entry_date == Date.current %>
+        <br>(today)
+        <% end %>
+      </td>
+      <td align="center"><%= @last_size.height %></td>
+      <td align="center"><%= @last_size.weight %></td>
+    </tr>
+  </table>
+  <br>
+  <p>
+    <a href="/sizes/<%= @baby.slug %>">View growth history</a> or <a href="/sizes/<%= @baby.slug %>/new">add a new entry</a>.
+  </p>
 <% end %>
 <br>
 

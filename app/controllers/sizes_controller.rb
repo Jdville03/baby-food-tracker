@@ -20,7 +20,7 @@ class SizesController < ApplicationController
       @size.height = params[:height]
       @size.weight = params[:weight]
       if @size.save
-        redirect "/babies/#{@size.baby.slug}"
+        redirect "/sizes/#{@size.baby.slug}"
       else
         # view can access @size in order to display validation failures with error messages
         erb :'sizes/edit'
@@ -36,9 +36,20 @@ class SizesController < ApplicationController
     # user may only delete size of baby that belongs to user
     if size && current_user.babies.include?(size.baby)
       size.delete
-      redirect "/babies/#{size.baby.slug}"
+      redirect "/sizes/#{size.baby.slug}"
     else
       redirect "/users/#{current_user.slug}?error=You may only delete entries for your own babies."
+    end
+  end
+
+  get '/sizes/:slug' do
+    redirect_if_not_logged_in
+    @baby = current_user.babies.find_by_slug(params[:slug])
+    # user may only view sizes for baby that belongs to user
+    if @baby
+      erb :'sizes/index'
+    else
+      redirect "/users/#{current_user.slug}?error=You may only view entries for your own babies."
     end
   end
 
@@ -60,7 +71,7 @@ class SizesController < ApplicationController
     if @baby
       @size = @baby.sizes.create(params[:size])
       if @size.save
-        redirect "/babies/#{@baby.slug}"
+        redirect "/sizes/#{@baby.slug}"
       else
         # view can access @baby and @size in order to display validation failures with error messages
         erb :'sizes/new'
