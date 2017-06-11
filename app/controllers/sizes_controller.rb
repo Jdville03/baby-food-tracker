@@ -51,16 +51,18 @@ class SizesController < ApplicationController
 
   post '/sizes/:slug/new' do
     redirect_if_not_logged_in
-    @size = Size.create(entry_date: params[:entry_date], height: params[:height], weight: params[:weight], baby: Baby.find_by_slug(params[:slug]))
+    @baby = current_user.babies.find_by_slug(params[:slug])
     # user may only add size of baby that belongs to user
-    if @size.save && current_user.babies.include?(@size.baby)
-      redirect "/babies/#{@size.baby.slug}"
-    elsif @size.save && !current_user.babies.include?(@size.baby)
+    if @baby
+      @size = Size.create(entry_date: params[:entry_date], height: params[:height], weight: params[:weight], baby: @baby)
+      if @size.save
+        redirect "/babies/#{@baby.slug}"
+      else
+        # view can access @baby and @size in order to display validation failures with error messages
+        erb :'sizes/new'
+      end
+    else
       redirect "/users/#{current_user.slug}?error=You may only add entries for your own babies."
-    elsif !@size.save && current_user.babies.include?(@size.baby)
-      # view can access @size in order to display validation failures with error messages
-      @baby = @size.baby
-      erb :'sizes/new'
     end
   end
 

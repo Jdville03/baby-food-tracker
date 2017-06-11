@@ -10,3 +10,55 @@
 <h2><a href="/babies/<%= @baby.slug %>">Baby <%= @baby.name %></a></h2>
 
 <h3>Add Meal:</h3>
+
+<form action="/meals/<%= @baby.slug %>/new" method="POST">
+  <table border="1">
+    <tr>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Food Type</th>
+      <% if @meal.food_type == "breast milk (breast)" %>
+        <th>Duration (mins)</th>
+      <% elsif @meal.food_type == "breast milk (bottle)" || @meal.food_type == "formula"%>
+        <th>Amount (oz)</th>
+      <% elsif @meal.food_type == "solids" %>
+        <th>Ingredient(s)</th>
+        <th>Amount (oz)<br>(optional)</th>
+      <% end %>
+    </tr>
+    <tr>
+      <td align="center"><input type="date" name="entry_date" id="date" value="<%= @meal.entry_date %>" max="<%= Date.current %>" required></td>
+      <td align="center"><input type="time" name="entry_time" id="time" value="<%= @meal.entry_time.strftime("%R") %>" required></td>
+      <td align="center">
+        <select name="food_type" required>
+          <option value="breast milk (breast)" <%= "selected" if @meal.food_type == "breast milk (breast)" %>>breast milk (breast)</option>
+          <option value="breast milk (bottle)" <%= "selected" if @meal.food_type == "breast milk (bottle)" %>>breast milk (bottle)</option>
+          <option value="formula" <%= "selected" if @meal.food_type == "formula" %>>formula</option>
+          <option value="solids" <%= "selected" if @meal.food_type == "solids" %>>solids</option>
+        </select>
+      </td>
+      <% if @meal.food_type == "breast milk (breast)" %>
+        <td align="center"><input type="number" name="duration" id="number" value="<%= @meal.duration %>" step="0.25" min="0.25" required></td>
+      <% elsif @meal.food_type == "breast milk (bottle)" || @meal.food_type == "formula" %>
+        <td align="center"><input type="number" name="amount" id="number" value="<%= @meal.amount %>" step="0.25" min="0.25" required></td>
+      <% elsif @meal.food_type == "solids" %>
+        <td align="center"><input type="text" name="ingredients" value="<%= @meal.ingredients %>" required></td>
+        <td align="center"><input type="number" name="amount" id="number" value="<%= @meal.amount %>" step="0.25" min="0.25"></td>
+      <% end %>
+    </tr>
+  </table>
+  <br>
+  <label for="notes">Notes (optional):</label>
+  <br>
+  <textarea id="notes" name="notes" rows="5" cols="50"><%= @meal.notes %></textarea>
+  <br><br>
+  You may update the entry by editing any of the fields and clicking here:
+  <input type="submit" value="Update Entry">
+</form>
+<br>
+
+<form action="/meals/<%= @meal.id %>/delete" method="POST">
+  Or if you would like to delete the entry, click here:
+  <input type="hidden" id="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete Entry">
+</form>

@@ -2,7 +2,7 @@
 
 <h3>Birthdate: <%= @baby.birthdate.strftime("%B %-d, %Y") %></h3>
 
-<h3>Caretakers:</h3>
+<h3>Caregivers:</h3>
 <ul>
   <li><a href="/users/<%= current_user.slug %>"><%= current_user.name %></a></li>
   <% @baby.users.sort_by{|user| user.name.split(" ").last}.each do |user| %>
@@ -18,7 +18,7 @@
   <tr>
     <th style="width:100px">Date</th>
     <th style="width:100px">Time</th>
-    <th style="width:200px">Food Type</th>
+    <th>Food Type</th>
   </tr>
   <% @baby.meals.sort_by{|meal| [meal.entry_date, meal.entry_time]}.each do |meal| %>
     <tr>
@@ -60,6 +60,7 @@
 <% else %>
   <p>Click on date to edit entry or <a href="/sizes/<%= @baby.slug %>/new">add an entry</a>.</p>
 <% end %>
+<br>
 
 <form action="/babies/<%= @baby.slug %>/delete" method="POST">
   If you would like to remove <%= @baby.name.split(" ").first %> from your list of babies, click here (<%= @baby.name.split(" ").first %> will remain visible to his or her other caretakers):

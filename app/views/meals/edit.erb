@@ -15,15 +15,16 @@
   <input type="hidden" id="hidden" name="_method" value="PATCH">
   <table border="1">
     <tr>
-      <th style="width:120px">Date</th>
-      <th style="width:120px">Time</th>
-      <th style="width:160px">Food Type</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Food Type</th>
       <% if @meal.food_type == "breast milk (breast)" %>
-        <th style="width:160px">Duration (mins)</th>
+        <th>Duration (mins)</th>
       <% elsif @meal.food_type == "breast milk (bottle)" || @meal.food_type == "formula"%>
-        <th style="width:160px">Amount (oz)</th>
+        <th>Amount (oz)</th>
       <% elsif @meal.food_type == "solids" %>
-        <th style="width:160px">Ingredient(s)</th>
+        <th>Ingredient(s)</th>
+        <th>Amount (oz)<br>(optional)</th>
       <% end %>
     </tr>
     <tr>
@@ -43,6 +44,7 @@
         <td align="center"><input type="number" name="amount" id="number" value="<%= @meal.amount %>" step="0.25" min="0.25" required></td>
       <% elsif @meal.food_type == "solids" %>
         <td align="center"><input type="text" name="ingredients" value="<%= @meal.ingredients %>" required></td>
+        <td align="center"><input type="number" name="amount" id="number" value="<%= @meal.amount %>" step="0.25" min="0.25"></td>
       <% end %>
     </tr>
   </table>
