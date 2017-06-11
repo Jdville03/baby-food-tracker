@@ -23,9 +23,18 @@ class MealsController < ApplicationController
       @meal.entry_date = params[:entry_date]
       @meal.entry_time = params[:entry_time]
       @meal.food_type = params[:food_type]
-      @meal.duration = params[:duration]
-      @meal.amount = params[:amount]
-      @meal.ingredients = params[:ingredients]
+      case @meal.food_type
+      when "breast milk (breast)"
+        @meal.duration = params[:duration]
+      when "breast milk (bottle)" || "formula"
+        @meal.amount = params[:amount]
+        @meal.amount_type = params[:amount_type]
+      when "solids"
+        @meal.ingredients = params[:ingredients]
+        @meal.amount = params[:amount]
+        # when amount is optional: if user selects amount_type without entering an amount, amount_type is set to nil
+        @meal.amount ? @meal.amount_type = params[:amount_type] : @meal.amount_type = nil
+      end
       @meal.notes = params[:notes]
       if @meal.save
         redirect "/babies/#{@meal.baby.slug}"
@@ -67,6 +76,8 @@ class MealsController < ApplicationController
     # user may only add meal for baby that belongs to user
     if @baby
       @meal = @baby.meals.create(params[:meal])
+      # when amount is optional: if user selects amount_type without entering an amount, amount_type is set to nil
+      @meal.amount_type = nil if !@meal.amount
       if @meal.save
         redirect "/babies/#{@baby.slug}"
       else

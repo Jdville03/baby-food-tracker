@@ -5,6 +5,7 @@ class CreateMeals < ActiveRecord::Migration
       t.time :entry_time
       t.string :food_type
       t.decimal :amount
+      t.string :amount_type
       t.decimal :duration
       t.string :ingredients
       t.text :notes

@@ -21,10 +21,10 @@
       <% if @meal.food_type == "breast milk (breast)" %>
         <th>Duration (mins)</th>
       <% elsif @meal.food_type == "breast milk (bottle)" || @meal.food_type == "formula" %>
-        <th>Amount (oz)</th>
+        <th>Amount</th>
       <% elsif @meal.food_type == "solids" %>
         <th>Ingredient(s)</th>
-        <th>Amount (oz)<br>(optional)</th>
+        <th>Amount<br>(optional)</th>
       <% end %>
     </tr>
     <tr>
@@ -32,6 +32,7 @@
       <td align="center"><input type="time" name="entry_time" id="time" value="<%= @meal.entry_time.strftime("%R") %>" required></td>
       <td align="center">
         <select name="food_type" required>
+          <option value=""></option>
           <option value="breast milk (breast)" <%= "selected" if @meal.food_type == "breast milk (breast)" %>>breast milk (breast)</option>
           <option value="breast milk (bottle)" <%= "selected" if @meal.food_type == "breast milk (bottle)" %>>breast milk (bottle)</option>
           <option value="formula" <%= "selected" if @meal.food_type == "formula" %>>formula</option>
@@ -41,10 +42,30 @@
       <% if @meal.food_type == "breast milk (breast)" %>
         <td align="center"><input type="number" name="duration" id="number" value="<%= @meal.duration %>" step="0.25" min="0.25" required></td>
       <% elsif @meal.food_type == "breast milk (bottle)" || @meal.food_type == "formula" %>
-        <td align="center"><input type="number" name="amount" id="number" value="<%= @meal.amount %>" step="0.25" min="0.25" required></td>
+        <td align="center">
+          <input type="number" name="amount" id="number" value="<%= @meal.amount %>" step="0.25" min="0.25" required>
+          <select name="amount_type" required>
+            <option value=""></option>
+            <option value="oz" <%= "selected" if @meal.amount_type == "oz" %>>oz</option>
+            <option value="ml" <%= "selected" if @meal.amount_type == "ml" %>>ml</option>
+            <option value="cup" <%= "selected" if @meal.amount_type == "cup" %>>cup</option>
+            <option value="tbsp" <%= "selected" if @meal.amount_type == "tbsp" %>>tbsp</option>
+            <option value="tsp" <%= "selected" if @meal.amount_type == "tsp" %>>tsp</option>
+          </select>
+        </td>
       <% elsif @meal.food_type == "solids" %>
         <td align="center"><input type="text" name="ingredients" id="ingredients" value="<%= @meal.ingredients %>" required></td>
-        <td align="center"><input type="number" name="amount" id="number" value="<%= @meal.amount %>" step="0.25" min="0.25"></td>
+        <td align="center">
+          <input type="number" name="amount" id="number" value="<%= @meal.amount %>" step="0.25" min="0.25">
+          <select name="amount_type">
+            <option value=""></option>
+            <option value="oz" <%= "selected" if @meal.amount_type == "oz" %>>oz</option>
+            <option value="ml" <%= "selected" if @meal.amount_type == "ml" %>>ml</option>
+            <option value="cup" <%= "selected" if @meal.amount_type == "cup" %>>cup</option>
+            <option value="tbsp" <%= "selected" if @meal.amount_type == "tbsp" %>>tbsp</option>
+            <option value="tsp" <%= "selected" if @meal.amount_type == "tsp" %>>tsp</option>
+          </select>
+        </td>
       <% end %>
     </tr>
   </table>
