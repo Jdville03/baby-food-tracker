@@ -20,7 +20,7 @@
       <th style="width:100px">Weight (lbs)</th>
     </tr>
     <tr>
-      <td align="center"><input type="date" name="entry_date" id="date" value="<%= @size.entry_date %>" max="<%= Date.current %>" required></td>
+      <td align="center"><input type="date" name="entry_date" id="date" value="<%= @size.entry_date %>" min="<%= @size.baby.birthdate %>" max="<%= Date.current %>" required></td>
       <td align="center"><input type="number" name="height" id="number" value="<%= @size.height %>" step="0.1" min="0.1"></td>
       <td align="center"><input type="number" name="weight" id="number" value="<%= @size.weight %>" step="0.1" min="0.1"></td>
     </tr>

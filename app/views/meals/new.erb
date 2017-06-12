@@ -27,7 +27,7 @@
       <% end %>
     </tr>
     <tr>
-      <td align="center"><input type="date" name="meal[entry_date]" id="date" value="<%= @meal.entry_date if @meal %>" max="<%= Date.current %>" required></td>
+      <td align="center"><input type="date" name="meal[entry_date]" id="date" value="<%= @meal.entry_date if @meal %>" min="<%= @baby.birthdate %>" max="<%= Date.current %>" required></td>
       <td align="center"><input type="time" name="meal[entry_time]" id="time" value="<%= @meal.entry_time.strftime("%R") if @meal %>" required></td>
       <td align="center">
         <select name="meal[food_type]" required>
