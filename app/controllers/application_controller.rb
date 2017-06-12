@@ -10,8 +10,8 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
-    #erb :welcome
-    redirect "/users/#{current_user.slug}"
+    erb :welcome
+    #redirect "/users/#{current_user.slug}"
   end
 
   helpers do

@@ -1,10 +1,13 @@
 <% if @meal && @meal.errors.any? %>
-  Please enter the required information:<br><br>
-  <ul>
-   <% @meal.errors.full_messages.each do |msg| %>
-     <li><%= msg %></li>
-   <% end %>
- </ul><br>
+  <div class="alert">
+    Please enter the required information:<br><br>
+    <ul>
+     <% @meal.errors.full_messages.each do |msg| %>
+       <li><%= msg %></li>
+     <% end %>
+   </ul>
+ </div>
+ <br>
 <% end %>
 
 <h2><a href="/babies/<%= @baby.slug %>">Baby <%= @baby.name %></a></h2>

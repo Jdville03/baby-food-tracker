@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
 
-  <title>BabyMealTracker</title>
+  <title>num-num time!</title>
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,13 +15,25 @@
   <link rel="stylesheet" href="/stylesheets/main.css"/>
 </head>
 <body>
+  <nav>
+    <% if logged_in? %>
+      <a href="/users/<%= current_user.slug %>">Home Page</a>
+      <a href="/logout">Log Out</a>
+      <p><%= current_user.username %></p>
+    <% else %>
+      <a href="/signup">Sign Up</a>
+      <a href="/login">Log In</a>
+    <%end %>
+  </nav>
+
   <div class="wrapper">
+    <h1>num-num time!</h1>
 
     <%= yield %>
 
     <footer class="branding">
       <small>&copy; 2017
-        <strong>BabyMealTracker</strong>
+        <strong>num-num time!</strong>
       </small>
     </footer>
   </div>
