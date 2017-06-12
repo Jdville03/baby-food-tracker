@@ -1,6 +1,7 @@
 <h2>Baby <%= @baby.name %></h2>
 
-<h3>Birthdate: <%= @baby.birthdate.strftime("%B %-d, %Y") %></h3>
+<h3><%= @baby.age(Date.current) %></h3>
+<p>(born on <%= @baby.birthdate.strftime("%B %-d, %Y") %>)</p>
 
 <h3>Caregivers:</h3>
 <ul>
@@ -70,8 +71,13 @@
   <table border="1">
     <tr>
       <th style="width:100px">Date</th>
-      <th style="width:100px">Height (")</th>
-      <th style="width:100px">Weight (lbs)</th>
+      <th style="width:100px">Age</th>
+      <% if @last_size.height %>
+        <th style="width:100px">Height (")</th>
+      <% end %>
+      <% if @last_size.weight %>
+        <th style="width:100px">Weight (lbs)</th>
+      <% end %>
     </tr>
     <tr>
       <td align="center">
@@ -80,8 +86,13 @@
         <br>(today)
         <% end %>
       </td>
-      <td align="center"><%= @last_size.height %></td>
-      <td align="center"><%= @last_size.weight %></td>
+      <td align="center"><%= @baby.age(@last_size.entry_date) %></td>
+      <% if @last_size.height %>
+        <td align="center"><%= @last_size.height %></td>
+      <% end %>
+      <% if @last_size.weight %>
+        <td align="center"><%= @last_size.weight %></td>
+      <% end %>
     </tr>
   </table>
   <br>
