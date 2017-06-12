@@ -82,16 +82,20 @@
     padding-top: 20px;
   }
 
-  #number {
+  input#number {
     width: 50px;
   }
 
-  #date, #time {
+  input#date, input#time {
     width: 120px;
   }
 
-  #ingredients {
+  input#ingredients {
     width: 160px;
+  }
+
+  a.datetime:link  {
+    text-decoration: none;
   }
 
 }

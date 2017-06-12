@@ -32,7 +32,7 @@
         <% else %>
           <td></td>
         <% end %>
-        <td align="center"><a href="/meals/<%= meal.id %>/edit"><%= meal.entry_time.strftime("%l:%M %p") %></a></td>
+        <td align="center"><a href="/meals/<%= meal.id %>/edit" class="datetime"><%= meal.entry_time.strftime("%l:%M %p") %></a></td>
         <% if meal.food_type == "solids" %>
           <td align="center"><%= meal.food_type %> (<%= meal.ingredients %>)</td>
         <% else %>
