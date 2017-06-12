@@ -63,16 +63,29 @@ class BabiesController < ApplicationController
     end
   end
 
-
-
-  # GET: /babies/5/edit
-  get "/babies/:id/edit" do
-    erb :"/babies/edit"
+  get '/babies/:slug/edit' do
+    redirect_if_not_logged_in
+    @baby = current_user.babies.find_by_slug(params[:slug])
+    # user may only edit show page of baby that belongs to the user
+    if @baby
+      @last_meal = @baby.meals.sort_by{|meal| [meal.entry_date, meal.entry_time]}.last
+      @last_size = @baby.sizes.sort_by{|size| size.entry_date}.last
+      erb :'babies/edit'
+    else
+      redirect "/users/#{current_user.slug}?error=You may only edit information for your own babies."
+    end
   end
 
-  # PATCH: /babies/5
-  patch "/babies/:id" do
-    redirect "/babies/:id"
+  patch "/babies/:slug" do
+    redirect_if_not_logged_in
+    baby = current_user.babies.find_by_slug(params[:slug])
+    # user may only edit show page of baby that belongs to the user
+    if baby
+      baby.update(birthdate: params[:birthdate])
+      redirect "/babies/#{baby.slug}"
+    else
+      redirect "/users/#{current_user.slug}?error=You may only edit information for your own babies."
+    end
   end
 
 end

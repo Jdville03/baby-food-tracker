@@ -1,7 +1,10 @@
 <h2>Baby <%= @baby.name %></h2>
 
 <h3><%= @baby.age(Date.current) %></h3>
-<p>(born on <%= @baby.birthdate.strftime("%B %-d, %Y") %>)</p>
+<p>
+  (born on <%= @baby.birthdate.strftime("%B %-d, %Y") %>)
+  <a href="/babies/<%= @baby.slug %>/edit">Edit</a>
+</p>
 
 <h3>Caregivers:</h3>
 <ul>
@@ -71,7 +74,7 @@
   <table border="1">
     <tr>
       <th style="width:100px">Date</th>
-      <th style="width:100px">Age</th>
+      <th style="width:120px">Age</th>
       <% if @last_size.height %>
         <th style="width:100px">Height (")</th>
       <% end %>

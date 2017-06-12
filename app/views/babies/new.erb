@@ -15,7 +15,7 @@
   <input type="text" id="name" name="name" value="<%= @baby.name if @baby %>" required>
   <br><br>
   <label for="birthdate">Birthdate:</label>
-  <input type="date" id="birthdate" name="birthdate" value="<%= @baby.birthdate if @baby %>" required>
+  <input type="date" id="birthdate" name="birthdate" class="date" value="<%= @baby.birthdate if @baby %>" max="<%= Date.current %>" required>
   <br><br>
   <label for="password">Personal Identification Password (PIP):</label>
   <input type="password" id="password" name="password" value="<%= @baby.password if @baby %>" required>

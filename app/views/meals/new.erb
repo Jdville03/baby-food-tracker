@@ -27,8 +27,8 @@
       <% end %>
     </tr>
     <tr>
-      <td align="center"><input type="date" name="meal[entry_date]" id="date" value="<%= @meal.entry_date if @meal %>" min="<%= @baby.birthdate %>" max="<%= Date.current %>" required></td>
-      <td align="center"><input type="time" name="meal[entry_time]" id="time" value="<%= @meal.entry_time.strftime("%R") if @meal %>" required></td>
+      <td align="center"><input type="date" name="meal[entry_date]" class="date" value="<%= @meal.entry_date if @meal %>" min="<%= @baby.birthdate %>" max="<%= Date.current %>" required></td>
+      <td align="center"><input type="time" name="meal[entry_time]" class="time" value="<%= @meal.entry_time.strftime("%R") if @meal %>" required></td>
       <td align="center">
         <select name="meal[food_type]" required>
           <option value=""></option>
@@ -39,10 +39,10 @@
         </select>
       </td>
       <% if @meal && @meal.food_type == "breast milk (breast)" %>
-        <td align="center"><input type="number" name="meal[duration]" id="number" value="<%= @meal.duration %>" step="0.25" min="0.25" required>min</td>
+        <td align="center"><input type="number" name="meal[duration]" class="number" value="<%= @meal.duration %>" step="0.25" min="0.25" required>min</td>
       <% elsif @meal && (@meal.food_type == "breast milk (bottle)" || @meal.food_type == "formula") %>
         <td align="center">
-          <input type="number" name="meal[amount]" id="number" value="<%= @meal.amount %>" step="0.25" min="0.25" required>
+          <input type="number" name="meal[amount]" class="number" value="<%= @meal.amount %>" step="0.25" min="0.25" required>
           <select name="meal[amount_type]" required>
             <option value=""></option>
             <option value="oz" <%= "selected" if @meal.amount_type == "oz" %>>oz</option>
@@ -53,9 +53,9 @@
           </select>
         </td>
       <% elsif @meal && @meal.food_type == "solids" %>
-        <td align="center"><input type="text" name="meal[ingredients]" id="ingredients" value="<%= @meal.ingredients %>" required></td>
+        <td align="center"><input type="text" name="meal[ingredients]" class="ingredients" value="<%= @meal.ingredients %>" required></td>
         <td align="center">
-          <input type="number" name="meal[amount]" id="number" value="<%= @meal.amount %>" step="0.25" min="0.25">
+          <input type="number" name="meal[amount]" class="number" value="<%= @meal.amount %>" step="0.25" min="0.25">
           <select name="meal[amount_type]">
             <option value=""></option>
             <option value="oz" <%= "selected" if @meal.amount_type == "oz" %>>oz</option>
