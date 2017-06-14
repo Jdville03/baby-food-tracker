@@ -11,7 +11,6 @@ class ApplicationController < Sinatra::Base
 
   get '/' do
     erb :welcome
-    #redirect "/users/#{current_user.slug}"
   end
 
   helpers do

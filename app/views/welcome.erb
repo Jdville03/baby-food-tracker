@@ -1,22 +1,35 @@
 <div class="container">
-  <div class="col-md-8 col-md-offset-2">
-    <h2>Welcome</h2>
 
-    <div class="content">
-      <p>Welcome to the Sinatra Template! If you're seeing this page, then everything is working
-      as expected. To get started, delete this file (<code>app/views/welcome.erb)</code> and begin adding
-      your own actions to <code>application_controller.rb</code>. For more information, see the <a href="https://github.com/thebrianemory/corneal">README</a>.</p>
-    </div>
+  <h2>Welcome</h2>
 
-    <div class="sidebar">
-      <h3>Environment</h3>
-      <ul>
-        <li><b>Ruby:</b> <%= RUBY_VERSION %></li>
-        <li><b>Environment:</b> <%= ENV["RACK_ENV"] %></li>
-        <li><b>Server:</b> <%= @env["SERVER_SOFTWARE"] %></li>
-        <li><b>Port:</b> <%= @env["SERVER_PORT"] %></li>
-      </ul>
-    </div>
+  <!--
+  <div class="content">
+    <p>Welcome to the Sinatra Template! If you're seeing this page, then everything is working
+    as expected. To get started, delete this file (<code>app/views/welcome.erb)</code> and begin adding
+    your own actions to <code>application_controller.rb</code>. For more information, see the <a href="https://github.com/thebrianemory/corneal">README</a>.</p>
 
   </div>
+
+  <div class="sidebar">
+    <h3>Environment</h3>
+    <ul>
+      <li><b>Ruby:</b> <%= RUBY_VERSION %></li>
+      <li><b>Environment:</b> <%= ENV["RACK_ENV"] %></li>
+      <li><b>Server:</b> <%= @env["SERVER_SOFTWARE"] %></li>
+      <li><b>Port:</b> <%= @env["SERVER_PORT"] %></li>
+    </ul>
+  </div>
+  -->
+
+  <p>
+    Moms, dads, family members, nannies, and other caregivers can use num-num time! to track the feedings and growth of their babies. Features include:
+    <ul>
+      <li>A caregiver can track one or multiple babies under his or her care.</li>
+      <li>After a caregiver creates a baby's profile with a unique personal identification password (PIP), other caregivers may use the PIP to also view and manage the baby's profile.</li>
+      <li>A baby's profile may only be viewed and managed by his or her caregivers.</li>
+      <li>A caregiver can delete a baby's profile only from his or her own list of babies. The baby's other caregivers can still view and manage the profile.</li>
+    </ul>
+  </p>
+
+
 </div>

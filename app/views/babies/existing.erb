@@ -8,7 +8,7 @@
 <h2>Add An Existing Baby</h2>
 
 <form action="/babies/existing" method="POST">
-  <p>Choose a baby who has already been added by another caregiver (you will need to obtain the baby's personal identification password (PIP) from the caregiver who created the baby):</p>
+  <p>Choose a baby who has already been added by another caregiver <small>(you will need to obtain the baby's personal identification password (PIP) from the caregiver who created the baby)</small>:</p>
   <label for="name">Name:</label>
   <input type="text" id="name" name="name" value="<%= @baby.name if @baby %>" required>
   <br><br>

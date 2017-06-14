@@ -23,7 +23,7 @@
   <label for="password">Personal Identification Password (PIP):</label>
   <input type="password" id="password" name="password" value="<%= @baby.password if @baby %>" required>
   <br>
-  (other caregivers will be required to enter the baby's PIP in order to connect this baby to their profiles)
+  <small>(other caregivers will be required to enter the baby's PIP in order to also view and manage this baby's profile)</small>
   <br><br>
   <label for="password_confirmation">Confirm PIP:</label>
   <input type="password" id="password_confirmation" name="password_confirmation" value="<%= @baby.password_confirmation if @baby %>" required>
