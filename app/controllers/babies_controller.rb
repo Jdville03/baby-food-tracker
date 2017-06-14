@@ -41,9 +41,9 @@ class BabiesController < ApplicationController
     end
   end
 
-  get '/babies/:slug' do
+  get '/babies/:id' do
     redirect_if_not_logged_in
-    @baby = current_user.babies.find_by_slug(params[:slug])
+    @baby = current_user.babies.find_by_id(params[:id])
     # user may only view show page of baby that belongs to the user
     if @baby
       @last_meal = @baby.meals.sort_by{|meal| [meal.entry_date, meal.entry_time]}.last
@@ -54,9 +54,9 @@ class BabiesController < ApplicationController
     end
   end
 
-  delete '/babies/:slug/delete' do
+  delete '/babies/:id/delete' do
     redirect_if_not_logged_in
-    baby = current_user.babies.find_by_slug(params[:slug])
+    baby = current_user.babies.find_by_id(params[:id])
     # user may only remove baby from own profile (baby will still remain visible to its other users)
     if baby
       current_user.babies.delete(baby)
@@ -66,9 +66,9 @@ class BabiesController < ApplicationController
     end
   end
 
-  get '/babies/:slug/edit' do
+  get '/babies/:id/edit' do
     redirect_if_not_logged_in
-    @baby = current_user.babies.find_by_slug(params[:slug])
+    @baby = current_user.babies.find_by_id(params[:id])
     # user may only edit show page of baby that belongs to the user
     if @baby
       @last_meal = @baby.meals.sort_by{|meal| [meal.entry_date, meal.entry_time]}.last
@@ -79,13 +79,13 @@ class BabiesController < ApplicationController
     end
   end
 
-  patch "/babies/:slug" do
+  patch "/babies/:id" do
     redirect_if_not_logged_in
-    baby = current_user.babies.find_by_slug(params[:slug])
+    baby = current_user.babies.find_by_id(params[:id])
     # user may only edit show page of baby that belongs to the user
     if baby
       baby.update(birthdate: params[:birthdate])
-      redirect "/babies/#{baby.slug}"
+      redirect "/babies/#{baby.id}"
     else
       redirect "/users/#{current_user.slug}?error=You may only edit information for your own babies."
     end

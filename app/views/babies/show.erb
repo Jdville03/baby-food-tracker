@@ -3,7 +3,7 @@
 <h3><%= @baby.age(Date.current) %></h3>
 <p>
   (born on <%= @baby.birthdate.strftime("%B %-d, %Y") %>)
-  <a href="/babies/<%= @baby.slug %>/edit">Edit</a>
+  <a href="/babies/<%= @baby.id %>/edit">Edit</a>
 </p>
 
 <h3>Caregivers:</h3>
@@ -19,7 +19,7 @@
 
 <h3>Last Feeding:</h3>
 <% if @baby.meals.empty? %>
-  <p><a href="/meals/<%= @baby.slug %>/new">Add a new feeding</a></p>
+  <p><a href="/meals/<%= @baby.id %>/new">Add a new feeding</a></p>
 <% else %>
   <table border="1">
     <tr>
@@ -63,13 +63,13 @@
     <p>Notes:<br><%= @last_meal.notes %></p>
   <% end %>
   <p>
-    <a href="/meals/<%= @baby.slug %>">View meals history</a> or <a href="/meals/<%= @baby.slug %>/new">add a new feeding</a>.
+    <a href="/meals/<%= @baby.id %>">View meals history</a> or <a href="/meals/<%= @baby.id %>/new">add a new feeding</a>.
   </p>
 <% end %>
 
 <h3>Last Measurement:</h3>
 <% if @baby.sizes.empty? %>
-  <p><a href="/sizes/<%= @baby.slug %>/new">Add a new entry</a></p>
+  <p><a href="/sizes/<%= @baby.id %>/new">Add a new entry</a></p>
 <% else %>
   <table border="1">
     <tr>
@@ -100,12 +100,12 @@
   </table>
   <br>
   <p>
-    <a href="/sizes/<%= @baby.slug %>">View growth history</a> or <a href="/sizes/<%= @baby.slug %>/new">add a new entry</a>.
+    <a href="/sizes/<%= @baby.id %>">View growth history</a> or <a href="/sizes/<%= @baby.id %>/new">add a new entry</a>.
   </p>
 <% end %>
 <br>
 
-<form action="/babies/<%= @baby.slug %>/delete" method="POST">
+<form action="/babies/<%= @baby.id %>/delete" method="POST">
   If you would like to remove <%= @baby.name.split(" ").first %> from the list of babies under your care, click here:
   <input type="hidden" id="hidden" name="_method" value="DELETE">
   <input type="submit" value="Remove Baby">
