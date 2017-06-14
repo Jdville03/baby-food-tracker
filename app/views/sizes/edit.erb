@@ -3,11 +3,7 @@
     Please try again:<br><br>
     <ul>
       <% @size.errors.full_messages.each do |msg| %>
-        <% if msg.include?("Entry date") %>
-          <li><%= msg %> Please enter a different date or <a href="/sizes/<%= Size.find_by(entry_date: @size.entry_date).id %>/edit">edit the entry for <%= @size.entry_date.strftime("%D") %></a>.</li>
-        <% else %>
-          <li><%= msg %></li>
-        <% end %>
+        <li><%= msg %></li>
       <% end %>
     </ul>
   </div>

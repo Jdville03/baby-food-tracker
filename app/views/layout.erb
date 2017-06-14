@@ -19,7 +19,8 @@
     <% if logged_in? %>
       <a href="/users/<%= current_user.slug %>">Home</a>
       <a href="/logout">Log Out</a>
-      <h3><%= current_user.username %></h3>
+      <h3>Welcome, <%= current_user.username %></h3>
+      Today is <%= Date.current.strftime("%A, %B %-d, %Y") %>
     <% else %>
       <a href="/signup">Sign Up</a>
       <a href="/login">Log In</a>
