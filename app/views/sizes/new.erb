@@ -10,11 +10,11 @@
   <br>
 <% end %>
 
-<h2><a href="/babies/<%= @baby.slug %>">Baby <%= @baby.name %></a></h2>
+<h2><a href="/babies/<%= @baby.id %>">Baby <%= @baby.name %></a></h2>
 
 <h3>Add Height and/or Weight:</h3>
 
-<form action="/sizes/<%= @baby.slug %>/new" method="POST">
+<form action="/sizes/<%= @baby.id %>/new" method="POST">
   <table border="1">
     <tr>
       <th style="width:120px">Date</th>

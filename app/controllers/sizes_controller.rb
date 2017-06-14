@@ -20,7 +20,7 @@ class SizesController < ApplicationController
       @size.height = params[:height]
       @size.weight = params[:weight]
       if @size.save
-        redirect "/sizes/#{@size.baby.slug}"
+        redirect "/sizes/#{@size.baby.id}"
       else
         # view can access @size in order to display validation failures with error messages
         erb :'sizes/edit'
@@ -36,15 +36,15 @@ class SizesController < ApplicationController
     # user may only delete size of baby that belongs to user
     if size && current_user.babies.include?(size.baby)
       size.delete
-      redirect "/sizes/#{size.baby.slug}"
+      redirect "/sizes/#{size.baby.id}"
     else
       redirect "/users/#{current_user.slug}?error=You may only delete entries for your own babies."
     end
   end
 
-  get '/sizes/:slug' do
+  get '/sizes/:baby_id' do
     redirect_if_not_logged_in
-    @baby = current_user.babies.find_by_slug(params[:slug])
+    @baby = current_user.babies.find_by_id(params[:baby_id])
     # user may only view sizes for baby that belongs to user
     if @baby
       erb :'sizes/index'
@@ -53,9 +53,9 @@ class SizesController < ApplicationController
     end
   end
 
-  get '/sizes/:slug/new' do
+  get '/sizes/:baby_id/new' do
     redirect_if_not_logged_in
-    @baby = current_user.babies.find_by_slug(params[:slug])
+    @baby = current_user.babies.find_by_id(params[:baby_id])
     # user may only add size of baby that belongs to user
     if @baby
       erb :'sizes/new'
@@ -64,14 +64,14 @@ class SizesController < ApplicationController
     end
   end
 
-  post '/sizes/:slug/new' do
+  post '/sizes/:baby_id/new' do
     redirect_if_not_logged_in
-    @baby = current_user.babies.find_by_slug(params[:slug])
+    @baby = current_user.babies.find_by_id(params[:baby_id])
     # user may only add size of baby that belongs to user
     if @baby
       @size = @baby.sizes.create(params[:size])
       if @size.save
-        redirect "/sizes/#{@baby.slug}"
+        redirect "/sizes/#{@baby.id}"
       else
         # view can access @baby and @size in order to display validation failures with error messages
         erb :'sizes/new'

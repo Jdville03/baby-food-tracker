@@ -22,7 +22,7 @@
     <tr>
       <th style="width:100px">Date</th>
       <th style="width:100px">Time</th>
-      <th style="width:120px">Food Type</th>
+      <th style="width:160px">Food Type</th>
     </tr>
     <% sorted_meals = @meals.sort_by{|meal| [meal.entry_date, meal.entry_time]}.reverse %>
     <% sorted_meals.each_with_index do |meal, index| %>

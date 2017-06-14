@@ -31,7 +31,7 @@
       <% elsif @last_meal.food_type == "breast milk (bottle)" || @last_meal.food_type == "formula" %>
         <th style="width:100px">Amount</th>
       <% elsif @last_meal.food_type == "solids" %>
-        <th style="width:120px">Ingredient(s)</th>
+        <th style="width:160px">Ingredient(s)</th>
         <% if @last_meal.amount %>
           <th style="width:100px">Amount</th>
         <% end %>
@@ -74,7 +74,7 @@
   <table border="1">
     <tr>
       <th style="width:100px">Date</th>
-      <th style="width:120px">Age</th>
+      <th style="width:170px">Age</th>
       <% if @last_size.height %>
         <th style="width:100px">Height (")</th>
       <% end %>
