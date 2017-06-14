@@ -2,12 +2,12 @@
   <div class="alert">
     Please try again:<br><br>
     <ul>
-     <% @baby.errors.full_messages.uniq.each do |msg| %>
-       <li><%= msg %></li>
-     <% end %>
-   </ul>
- </div>
- <br>
+      <% @baby.errors.full_messages.uniq.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <br>
 <% end %>
 
 <h2>Create A New Baby</h2>

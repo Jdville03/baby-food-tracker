@@ -60,9 +60,9 @@ class MealsController < ApplicationController
     @baby = current_user.babies.find_by_slug(params[:slug])
     # user may only view meals for baby that belongs to user
     if @baby
-      # default view of meals is current calendar week
-      @meals = @baby.meals.select{|meal| meal.entry_date.cweek == Date.current.cweek && meal.entry_date.cwyear == Date.current.cwyear}
-      @time_frame = "week"
+      # default view of meals is today
+      @meals = @baby.meals.select{|meal| meal.entry_date == Date.current}
+      @time_frame = "today"
       erb :'meals/index'
     else
       redirect "/users/#{current_user.slug}?error=You may only view entries for your own babies."

@@ -2,12 +2,12 @@
   <div class="alert">
     Please try again:<br><br>
     <ul>
-     <% @meal.errors.full_messages.each do |msg| %>
-       <li><%= msg %></li>
-     <% end %>
-   </ul>
- </div>
- <br>
+      <% @meal.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <br>
 <% end %>
 
 <h2><a href="/babies/<%= @meal.baby.slug %>">Baby <%= @meal.baby.name %></a></h2>
@@ -75,7 +75,7 @@
   <br>
   <label for="notes">Notes (optional):</label>
   <br>
-  <textarea id="notes" name="notes" rows="5" cols="50" placeholder="For example - baby's reaction, preparation techniques"><%= @meal.notes %></textarea>
+  <textarea id="notes" name="notes" rows="5" cols="60" placeholder="For example - baby's reaction, preparation techniques"><%= @meal.notes %></textarea>
   <br><br>
   You may update the entry by editing any of the fields and clicking here:
   <input type="submit" value="Update Entry">

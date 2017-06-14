@@ -7,6 +7,7 @@
   <input type="date" name="birthdate" class="date" value="<%= @baby.birthdate %>" max="<%= Date.current %>" required>)
   <input type="submit" value="Update Birthdate">
 </form>
+<br>
 
 <h3>Caregivers:</h3>
 <ul>
@@ -108,7 +109,9 @@
 <br>
 
 <form action="/babies/<%= @baby.slug %>/delete" method="POST">
-  If you would like to remove <%= @baby.name.split(" ").first %> from the list of babies under your care, click here (<%= @baby.name.split(" ").first %> will remain visible to his or her other caregivers):
+  If you would like to remove <%= @baby.name.split(" ").first %> from the list of babies under your care, click here:
   <input type="hidden" id="hidden" name="_method" value="DELETE">
   <input type="submit" value="Remove Baby">
+  <br>
+  (<%= @baby.name.split(" ").first %> will remain visible to his or her other caregivers)
 </form>

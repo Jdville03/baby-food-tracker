@@ -2,12 +2,12 @@
   <div class="alert">
     Please enter the required information:<br><br>
     <ul>
-     <% @meal.errors.full_messages.each do |msg| %>
-       <li><%= msg %></li>
-     <% end %>
-   </ul>
- </div>
- <br>
+      <% @meal.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <br>
 <% end %>
 
 <h2><a href="/babies/<%= @baby.slug %>">Baby <%= @baby.name %></a></h2>
@@ -74,7 +74,7 @@
   <br>
   <label for="notes">Notes (optional):</label>
   <br>
-  <textarea id="notes" name="meal[notes]" rows="5" cols="50" placeholder="For example - baby's reaction, preparation techniques"><%= @meal.notes if @meal %></textarea>
+  <textarea id="notes" name="meal[notes]" rows="5" cols="60" placeholder="For example - baby's reaction, preparation techniques"><%= @meal.notes if @meal %></textarea>
   <br><br>
   <input type="submit" value="Add Entry">
 </form>
