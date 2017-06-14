@@ -5,12 +5,6 @@ class BabiesController < ApplicationController
     erb :'babies/new'
   end
 
-  get '/babies/existing' do
-    redirect_if_not_logged_in
-    @error_message = params[:error]
-    erb :'babies/existing'
-  end
-
   post '/babies/new' do
     redirect_if_not_logged_in
     @baby = current_user.babies.create(params)
@@ -22,19 +16,28 @@ class BabiesController < ApplicationController
     end
   end
 
+  get '/babies/existing' do
+    redirect_if_not_logged_in
+    @error_message = params[:error]
+    erb :'babies/existing'
+  end
+
   post '/babies/existing' do
     redirect_if_not_logged_in
-    if baby = Baby.find_by(name: params[:name]).try(:authenticate, params[:password])
-      if current_user.babies.include?(baby)
+    if @baby = Baby.find_by(name: params[:name], birthdate: params[:birthdate]).try(:authenticate, params[:password])
+      if current_user.babies.include?(@baby)
         # error message displayed in view if existing baby being added already belongs to the user
         redirect "/users/#{current_user.slug}?error=The baby you attempted to add is already included in your profile."
       else
-        current_user.babies << baby
+        current_user.babies << @baby
         redirect "/users/#{current_user.slug}"
       end
     else
-      # error message displayed in view if name and password (PIC) are not valid
-      redirect '/babies/existing?error=The Name and PIC combination is not valid. Please try again.'
+      # error message displayed in view if name, birthdate, and password (PIP) combination is not valid
+      @error_message = "The entered information is not valid for an existing baby. Please try again."
+      # new instance created to allow form in view to include previously entered data on subsequent attempts to add an existing baby after validation error
+      @baby = Baby.new(params)
+      erb :'babies/existing'
     end
   end
 
