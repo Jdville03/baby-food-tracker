@@ -1,8 +1,8 @@
-<h2><a href="/babies/<%= @baby.slug %>">Baby <%= @baby.name %></a></h2>
+<h2><a href="/babies/<%= @baby.id %>">Baby <%= @baby.name %></a></h2>
 
 <h3>Meals History:</h3>
 
-<form action="/meals/<%= @baby.slug %>" method="POST">
+<form action="/meals/<%= @baby.id %>" method="POST">
   <select name="time_frame" required>
     <option value="today" <%= "selected" if @time_frame == "today" %>>today</option>
     <option value="last_3_days" <%= "selected" if @time_frame == "last_3_days" %>>last 3 days</option>
@@ -16,7 +16,7 @@
 <br>
 
 <% if @meals.empty? %>
-  <p>Select a different time frame or <a href="/meals/<%= @baby.slug %>/new">add a new feeding</a>.</p>
+  <p>Select a different time frame or <a href="/meals/<%= @baby.id %>/new">add a new feeding</a>.</p>
 <% else %>
   <table border="1">
     <tr>
@@ -42,5 +42,5 @@
     <% end %>
   </table>
   <br>
-  <p>Click on time to see more information or <a href="/meals/<%= @baby.slug %>/new">add a new feeding</a>.</p>
+  <p>Click on time to see more information or <a href="/meals/<%= @baby.id %>/new">add a new feeding</a>.</p>
 <% end %>

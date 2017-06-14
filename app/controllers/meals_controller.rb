@@ -22,7 +22,10 @@ class MealsController < ApplicationController
       case @meal.food_type
       when "breast milk (breast)"
         @meal.duration = params[:duration]
-      when "breast milk (bottle)" || "formula"
+      when "breast milk (bottle)"
+        @meal.amount = params[:amount]
+        @meal.amount_type = params[:amount_type]
+      when "formula"
         @meal.amount = params[:amount]
         @meal.amount_type = params[:amount_type]
       when "solids"
@@ -33,7 +36,7 @@ class MealsController < ApplicationController
       end
       @meal.notes = params[:notes]
       if @meal.save
-        redirect "/meals/#{@meal.baby.slug}"
+        redirect "/meals/#{@meal.baby.id}"
       else
         # view can access @meal in order to display validation failures with error messages
         erb :'meals/edit'
@@ -49,15 +52,15 @@ class MealsController < ApplicationController
     # user may only delete meal of baby that belongs to user
     if meal && current_user.babies.include?(meal.baby)
       meal.delete
-      redirect "/meals/#{meal.baby.slug}"
+      redirect "/meals/#{meal.baby.id}"
     else
       redirect "/users/#{current_user.slug}?error=You may only delete entries for your own babies."
     end
   end
 
-  get '/meals/:slug' do
+  get '/meals/:baby_id' do
     redirect_if_not_logged_in
-    @baby = current_user.babies.find_by_slug(params[:slug])
+    @baby = current_user.babies.find_by_id(params[:baby_id])
     # user may only view meals for baby that belongs to user
     if @baby
       # default view of meals is today
@@ -69,9 +72,9 @@ class MealsController < ApplicationController
     end
   end
 
-  post '/meals/:slug' do
+  post '/meals/:baby_id' do
     redirect_if_not_logged_in
-    @baby = current_user.babies.find_by_slug(params[:slug])
+    @baby = current_user.babies.find_by_id(params[:baby_id])
     # user may only view meals for baby that belongs to user
     if @baby
       case params[:time_frame]
@@ -100,9 +103,9 @@ class MealsController < ApplicationController
     end
   end
 
-  get '/meals/:slug/new' do
+  get '/meals/:baby_id/new' do
     redirect_if_not_logged_in
-    @baby = current_user.babies.find_by_slug(params[:slug])
+    @baby = current_user.babies.find_by_id(params[:baby_id])
     # user may only add meal for baby that belongs to user
     if @baby
       erb :'meals/new'
@@ -111,16 +114,16 @@ class MealsController < ApplicationController
     end
   end
 
-  post '/meals/:slug/new' do
+  post '/meals/:baby_id/new' do
     redirect_if_not_logged_in
-    @baby = current_user.babies.find_by_slug(params[:slug])
+    @baby = current_user.babies.find_by_id(params[:baby_id])
     # user may only add meal for baby that belongs to user
     if @baby
       @meal = @baby.meals.create(params[:meal])
       # when amount is optional: if user selects amount_type without entering an amount, amount_type is set to nil
       @meal.amount_type = nil if !@meal.amount
       if @meal.save
-        redirect "/meals/#{@baby.slug}"
+        redirect "/meals/#{@baby.id}"
       else
         # view can access @baby and @meal in order to display validation failures with error messages
         erb :'meals/new'

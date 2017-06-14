@@ -10,11 +10,11 @@
   <br>
 <% end %>
 
-<h2><a href="/babies/<%= @baby.slug %>">Baby <%= @baby.name %></a></h2>
+<h2><a href="/babies/<%= @baby.id %>">Baby <%= @baby.name %></a></h2>
 
 <h3>Add Meal:</h3>
 
-<form action="/meals/<%= @baby.slug %>/new" method="POST">
+<form action="/meals/<%= @baby.id %>/new" method="POST">
   <table border="1">
     <tr>
       <th>Date</th>
