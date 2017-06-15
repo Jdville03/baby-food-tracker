@@ -1,7 +1,7 @@
 <h2>Welcome</h2>
 
 <p>
-  Moms, dads, family members, nannies, and other caregivers can use <i>num-num time!</i> to track the feedings and growth of their babies. Tracking every aspect of an infant's life (including diapers and sleep) can be tedious. If your baby is past that stage, <i>num-num time!</i> allows you to focus on logging your little one's adventures with food! You can also record your baby's height and/or weight daily or as frequently as you would like. They grow up so fast!
+  Moms, dads, family members, nannies, and other caregivers can use <span class="numnum">num-num time!</span> to track the feedings and growth of their babies. Tracking every aspect of an infant's life (including diapers and sleep) can be tedious. If your baby is past that stage, <span class="numnum">num-num time!</span> allows you to focus on logging your little one's adventures with food! You can also record your baby's height and/or weight daily or as frequently as you would like. They grow up so fast!
   <br><br>
   User features include:
   <ul>
@@ -11,9 +11,11 @@
     <li>A caregiver can delete a baby's profile only from his or her own account. The baby's other caregivers can still view and manage the profile.</li>
   </ul>
 </p>
-<% if logged_in? %>
-  <p>Go to your home page using the link above.</p>
-<% else %>
-  <p>Sign up or log in using the links above.</p>
-<% end %>
-<strong><h4>It's num-num time!</h4></strong>
+<p>
+  <% if logged_in? %>
+    <p>Go to your home page using the link above.</p>
+  <% else %>
+    <p>Sign up or log in using the links above.</p>
+  <% end %>
+  <strong><span class="numnum">It's num-num time!</span></strong>
+</p>

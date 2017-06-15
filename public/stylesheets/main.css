@@ -58,12 +58,6 @@
     font-family: 'Architects Daughter', cursive;
   }
 
-  h4 {
-    font-size: 18px;
-    line-height: 24px;
-    font-family: 'Indie Flower', cursive;
-  }
-
   p {
     margin-bottom: 18px;
   }
@@ -126,13 +120,20 @@
     max-width: 960px;
     padding: 3px 2.25%; /* 18px / 800px */
     width: 85%;
-    font-family: 'Architects Daughter', cursive;
   }
 
   .alert {
     color: red;
     border: 1px solid red;
     padding: 2px;
+  }
+
+  .numnum {
+    font-family: 'Indie Flower', cursive;
+  }
+
+  .navlinks {
+    font-family: 'Architects Daughter', cursive;
   }
 
 }
@@ -166,4 +167,14 @@
     font-size: 18px;
     line-height: 24px;
   }
+
+  h3 {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  body {
+    font-size: 80%;
+  }
+
 }
