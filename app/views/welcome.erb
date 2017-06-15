@@ -1,11 +1,19 @@
 <h2>Welcome</h2>
 
 <p>
-  Moms, dads, family members, nannies, and other caregivers can use num-num time! to track the feedings and growth of their babies. Features include:
+  Moms, dads, family members, nannies, and other caregivers can use <i>num-num time!</i> to track the feedings and growth of their babies. Tracking every aspect of your baby's life (including diapers and sleep) can be tedious. If your baby is past that stage, <i>num-num time!</i> allows you to focus on the fun of food! You can also record your baby's height and/or weight as frequently as you would like.
+  <br><br>
+  User features include:
   <ul>
-    <li>A caregiver can track one or multiple babies under his or her care.</li>
-    <li>After a caregiver creates a baby's profile with a unique personal identification password (PIP), other caregivers may use the PIP to also view and manage the baby's profile.</li>
-    <li>A baby's profile may only be viewed and managed by his or her caregivers.</li>
-    <li>A caregiver can delete a baby's profile only from his or her own list of babies. The baby's other caregivers can still view and manage the profile.</li>
+    <li>Track one or more babies under your care.</li>
+    <li>After a caregiver creates a baby's profile with a personal identification password (PIP), other caregivers may use the PIP to also view and manage the baby's profile.</li>
+    <li>Your baby's profile may only be viewed and managed by you and his or her other caregivers.</li>
+    <li>A caregiver can delete a baby's profile only from his or her own account. The baby's other caregivers can still view and manage the profile.</li>
   </ul>
 </p>
+<% if logged_in? %>
+  <p>Go to your home page using the link above.</p>
+<% else %>
+  <p>Sign up or log in using the links above.</p>
+<% end %>
+<strong><h4>It's num-num time!</h4></strong>

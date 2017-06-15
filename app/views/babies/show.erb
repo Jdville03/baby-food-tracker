@@ -31,7 +31,7 @@
       <% elsif @last_meal.food_type == "breast milk (bottle)" || @last_meal.food_type == "formula" %>
         <th style="width:100px">Amount</th>
       <% elsif @last_meal.food_type == "solids" %>
-        <th style="width:160px">Ingredient(s)</th>
+        <th style="width:160px">Main<br>Ingredient(s)</th>
         <% if @last_meal.amount %>
           <th style="width:100px">Amount</th>
         <% end %>
@@ -60,7 +60,7 @@
   </table>
   <br>
   <% unless @last_meal.notes.empty? %>
-    <p>Notes:<br><%= @last_meal.notes %></p>
+    <p><strong>Notes:</strong><br><%= @last_meal.notes %></p>
   <% end %>
   <p>
     <a href="/meals/<%= @baby.id %>">View meals history</a> or <a href="/meals/<%= @baby.id %>/new">add a new feeding</a>.
@@ -103,14 +103,12 @@
     <a href="/sizes/<%= @baby.id %>">View growth history</a> or <a href="/sizes/<%= @baby.id %>/new">add a new entry</a>.
   </p>
 <% end %>
-<br><br>
+<br>
 
 <form action="/babies/<%= @baby.id %>/delete" method="POST">
-  <small>
   If you would like to remove <%= @baby.name.split(" ").first %> from the list of babies under your care, click here:
   <input type="hidden" id="hidden" name="_method" value="DELETE">
   <input type="submit" value="Remove Baby">
   <br>
-  (<%= @baby.name.split(" ").first %> will remain visible to his or her other caregivers)
-  </small>
+  <small>(<%= @baby.name.split(" ").first %> will remain visible to his or her other caregivers)</small>
 </form>

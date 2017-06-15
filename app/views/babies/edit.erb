@@ -34,7 +34,7 @@
       <% elsif @last_meal.food_type == "breast milk (bottle)" || @last_meal.food_type == "formula" %>
         <th style="width:100px">Amount</th>
       <% elsif @last_meal.food_type == "solids" %>
-        <th style="width:120px">Ingredient(s)</th>
+        <th style="width:160px">Main<br>Ingredient(s)</th>
         <% if @last_meal.amount %>
           <th style="width:100px">Amount</th>
         <% end %>
@@ -63,7 +63,7 @@
   </table>
   <br>
   <% unless @last_meal.notes.empty? %>
-    <p>Notes:<br><%= @last_meal.notes %></p>
+    <p><strong>Notes:</strong><br><%= @last_meal.notes %></p>
   <% end %>
   <p>
     <a href="/meals/<%= @baby.id %>">View meals history</a> or <a href="/meals/<%= @baby.id %>/new">add a new feeding</a>.
@@ -77,7 +77,7 @@
   <table border="1">
     <tr>
       <th style="width:100px">Date</th>
-      <th style="width:120px">Age</th>
+      <th style="width:170px">Age</th>
       <% if @last_size.height %>
         <th style="width:100px">Height (")</th>
       <% end %>
@@ -113,5 +113,5 @@
   <input type="hidden" id="hidden" name="_method" value="DELETE">
   <input type="submit" value="Remove Baby">
   <br>
-  (<%= @baby.name.split(" ").first %> will remain visible to his or her other caregivers)
+  <small>(<%= @baby.name.split(" ").first %> will remain visible to his or her other caregivers)</small>
 </form>

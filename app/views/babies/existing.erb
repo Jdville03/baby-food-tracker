@@ -8,14 +8,14 @@
 <h2>Add An Existing Baby</h2>
 
 <form action="/babies/existing" method="POST">
-  <p>Choose a baby who has already been added by another caregiver <small>(you will need to obtain the baby's personal identification password (PIP) from the caregiver who created the baby)</small>:</p>
-  <label for="name">Name:</label>
+  <p>Enter the baby's information:<br><small>(you will need to obtain the baby's personal identification password (PIP) from the caregiver who created the baby)</small></p>
+  <label for="name">Name:</label><br>
   <input type="text" id="name" name="name" value="<%= @baby.name if @baby %>" required>
   <br><br>
-  <label for="birthdate">Birthdate:</label>
+  <label for="birthdate">Birthdate:</label><br>
   <input type="date" id="birthdate" name="birthdate" class="date" max="<%= Date.current %>" value="<%= @baby.birthdate if @baby %>" required>
   <br><br>
-  <label for="password">PIP:</label>
+  <label for="password">PIP:</label><br>
   <input type="password" id="password" name="password" value="<%= @baby.password if @baby %>" required>
   <br><br>
   <input type="submit" value="Submit">

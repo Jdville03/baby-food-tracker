@@ -14,18 +14,17 @@
 
 <!-- form includes previously entered data on subsequent attempts to create a new baby after a validation error -->
 <form action="/babies/new" method="POST">
-  <label for="name">Name:</label>
+  <label for="name">Name:</label><br>
   <input type="text" id="name" name="name" value="<%= @baby.name if @baby %>" required>
   <br><br>
-  <label for="birthdate">Birthdate:</label>
+  <label for="birthdate">Birthdate:</label><br>
   <input type="date" id="birthdate" name="birthdate" class="date" value="<%= @baby.birthdate if @baby %>" max="<%= Date.current %>" required>
   <br><br>
-  <label for="password">Personal Identification Password (PIP):</label>
+  <label for="password">Personal Identification Password (PIP):</label><br>
+  <small>(other caregivers will be required to enter the baby's PIP in order to also view and manage this baby's profile)</small><br>
   <input type="password" id="password" name="password" value="<%= @baby.password if @baby %>" required>
-  <br>
-  <small>(other caregivers will be required to enter the baby's PIP in order to also view and manage this baby's profile)</small>
   <br><br>
-  <label for="password_confirmation">Confirm PIP:</label>
+  <label for="password_confirmation">Confirm PIP:</label><br>
   <input type="password" id="password_confirmation" name="password_confirmation" value="<%= @baby.password_confirmation if @baby %>" required>
   <br><br>
   <input type="submit" value="Submit">

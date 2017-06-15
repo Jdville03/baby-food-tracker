@@ -22,6 +22,7 @@
       <h3>Welcome, <%= current_user.username %></h3>
       Today is <%= Date.current.strftime("%A, %B %-d, %Y") %>
     <% else %>
+      <a href="/">Welcome</a>
       <a href="/signup">Sign Up</a>
       <a href="/login">Log In</a>
     <%end %>
@@ -33,8 +34,8 @@
     <%= yield %>
 
     <footer class="branding">
-      <small>&copy; 2017
-        <strong><a href="/">num-num time!</a></strong> created by jdville03
+      <small>&copy; 2017 Jdville03
+        <strong><a href="https://github.com/Jdville03/baby-meal-tracker" target="_blank">GitHub</a></strong>
       </small>
     </footer>
   </div>

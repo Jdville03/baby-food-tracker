@@ -14,19 +14,19 @@
 
 <!-- form includes user's previously entered data on subsequent attempts to sign up after receiving a validation error -->
 <form action="/signup" method="POST">
-  <label for="username">Username:</label>
+  <label for="username">Username:</label><br>
   <input type="text" id="username" name="username" value="<%= @user.username if @user %>" required>
   <br><br>
-  <label for="name">Full Name:</label>
+  <label for="name">Full Name:</label><br>
   <input type="text" id="name" name="name" value="<%= @user.name if @user %>" required>
   <br><br>
-  <label for="email">Email:</label>
+  <label for="email">Email:</label><br>
   <input type="email" id="email" name="email" value="<%= @user.email if @user %>" required>
   <br><br>
-  <label for="password">Password:</label>
+  <label for="password">Password:</label><br>
   <input type="password" id="password" name="password" value="<%= @user.password if @user %>" required>
   <br><br>
-  <label for="password_confirmation">Confirm Password:</label>
+  <label for="password_confirmation">Confirm Password:</label><br>
   <input type="password" id="password_confirmation" name="password_confirmation" value="<%= @user.password_confirmation if @user %>" required>
   <br><br>
   <input type="submit" value="Sign Up">

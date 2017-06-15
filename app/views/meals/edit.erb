@@ -26,7 +26,7 @@
       <% elsif @meal.food_type == "breast milk (bottle)" || @meal.food_type == "formula" %>
         <th>Amount</th>
       <% elsif @meal.food_type == "solids" %>
-        <th>Ingredient(s)</th>
+        <th>Main<br>Ingredient(s)</th>
         <th>Amount<br>(optional)</th>
       <% end %>
     </tr>
@@ -75,7 +75,7 @@
   <br>
   <label for="notes">Notes (optional):</label>
   <br>
-  <textarea id="notes" name="notes" rows="5" cols="60" placeholder="For example - baby's reaction, preparation techniques"><%= @meal.notes %></textarea>
+  <textarea id="notes" name="notes" rows="5" cols="60" placeholder="For example - baby's reaction, preparation techniques, other ingredients"><%= @meal.notes %></textarea>
   <br><br>
   You may update the entry by editing any of the fields and clicking here:
   <input type="submit" value="Update Entry">
