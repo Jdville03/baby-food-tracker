@@ -1,0 +1,17 @@
+development:
+  adapter: sqlite3
+  database: baby_meal_tracker_development
+  pool: 5
+  timeout: 5000
+
+test:
+  adapter: sqlite3
+  database: baby_meal_tracker_test
+  pool: 5
+  timeout: 5000
+
+production:
+  adapter: postgresql
+  database: baby_meal_tracker_production
+  pool: 5
+  timeout: 5000
