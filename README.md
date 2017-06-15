@@ -4,7 +4,7 @@ Moms, dads, family members, nannies, and other caregivers can use this Sinatra a
 
 ## Usage
 
-Visit the app at https://num-num-time.herokuapp.com. Sign up to get started. Add a baby to track by creating a new baby profile or finding an existing baby profile created by another caregiver. Navigate the site to add, edit, and delete meal and height/weight entries for each of your babies.
+Visit the app at https://num-num-time.herokuapp.com/. Sign up to get started. Add a baby to track by creating a new baby profile or finding an existing baby profile created by another caregiver. Navigate the site to add, edit, and delete meal and height/weight entries for each of your babies.
 
 ## Contributing
 
