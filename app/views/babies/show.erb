@@ -3,7 +3,7 @@
 <h3><%= @baby.age(Date.current) %></h3>
 <p>
   (born on <%= @baby.birthdate.strftime("%B %-d, %Y") %>)
-  <a href="/babies/<%= @baby.id %>/edit">Edit</a>
+  <a href="/babies/<%= @baby.id %>/edit"><small>Edit</small></a>
 </p>
 
 <h3>Caregivers:</h3>
