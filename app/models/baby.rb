@@ -7,11 +7,11 @@ class Baby < ActiveRecord::Base
   validates :name, :birthdate, presence: true
   has_secure_password
 
-  extend Slugifiable::ClassMethods
+  #extend Slugifiable::ClassMethods
 
-  def slug
-    self.name.downcase.gsub(/[\s\W]/, "-")
-  end
+  #def slug
+  #  self.name.downcase.gsub(/[\s\W]/, "-")
+  #end
 
   DAYS_IN_MONTH  = [nil, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   # This method takes a birthday in the string format "MM/DD/YYYY" and returns
