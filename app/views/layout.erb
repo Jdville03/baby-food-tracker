@@ -24,9 +24,11 @@
       <h3>Welcome, <%= current_user.username %></h3>
       Today is <%= Date.current.strftime("%A, %B %-d, %Y") %>
     <% else %>
-      <a href="/">Welcome</a>&ensp;
-      <a href="/signup">Sign Up</a>
-      <a href="/login">Log In</a>
+      <span class="navlinks">
+        <a href="/">Welcome</a>&ensp;
+        <a href="/signup">Sign Up</a>
+        <a href="/login">Log In</a>
+      </span>
     <%end %>
   </nav>
 
