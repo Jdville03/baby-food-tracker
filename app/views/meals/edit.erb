@@ -77,6 +77,8 @@
   <br>
   <textarea id="notes" name="notes" rows="5" cols="60" placeholder="For example - baby's reaction, preparation techniques, other ingredients"><%= @meal.notes %></textarea>
   <br><br>
+  <a href="/meals/<%= @meal.baby.id %>">Return to meals history</a>.
+  <br><br>
   You may update the entry by editing any of the fields and clicking here:
   <input type="submit" value="Update Entry">
 </form>
