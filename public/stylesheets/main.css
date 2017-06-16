@@ -144,6 +144,10 @@
     padding-top: 2px;
   }
 
+  table {
+    border-collapse: collapse;
+  }
+
 }
 
 @media screen and (max-width: 600px) {
