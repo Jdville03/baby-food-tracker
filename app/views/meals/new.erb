@@ -76,7 +76,9 @@
   <br>
   <label for="notes">Notes (optional):</label>
   <br>
-  <textarea id="notes" name="meal[notes]" rows="5" cols="60" placeholder="For example - baby's reaction, preparation techniques, other ingredients"><%= @meal.notes if @meal %></textarea>
+  <div style="overflow-x: auto;">
+    <textarea id="notes" name="meal[notes]" rows="5" cols="60" placeholder="For example - baby's reaction, preparation techniques, other ingredients"><%= @meal.notes if @meal %></textarea>
+  </div>
   <br><br>
   <input type="submit" value="Add Entry">
 </form>
