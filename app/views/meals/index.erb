@@ -18,29 +18,31 @@
 <% if @meals.empty? %>
   <p>Select a different time frame or <a href="/meals/<%= @baby.id %>/new">add a new feeding</a>.</p>
 <% else %>
-  <table border="1">
-    <tr>
-      <th style="width:100px">Date</th>
-      <th style="width:100px">Time</th>
-      <th style="width:160px">Food Type</th>
-    </tr>
-    <% sorted_meals = @meals.sort_by{|meal| [meal.entry_date, meal.entry_time]}.reverse %>
-    <% sorted_meals.each_with_index do |meal, index| %>
+  <div style="overflow-x: auto;">
+    <table border="1">
       <tr>
-        <% if index == 0 || meal.entry_date != sorted_meals[index - 1].entry_date %>
-          <td align="center"><%= meal.entry_date.strftime("%D") %></td>
-        <% else %>
-          <td></td>
-        <% end %>
-        <td align="center"><a href="/meals/<%= meal.id %>/edit" class="datetime"><%= meal.entry_time.strftime("%l:%M %p") %></a></td>
-        <% if meal.food_type == "solids" %>
-          <td align="center"><%= meal.food_type %> (<%= meal.ingredients %>)</td>
-        <% else %>
-          <td align="center"><%= meal.food_type %></td>
-        <% end %>
+        <th style="width:100px">Date</th>
+        <th style="width:100px">Time</th>
+        <th style="width:160px">Food Type</th>
       </tr>
-    <% end %>
-  </table>
+      <% sorted_meals = @meals.sort_by{|meal| [meal.entry_date, meal.entry_time]}.reverse %>
+      <% sorted_meals.each_with_index do |meal, index| %>
+        <tr>
+          <% if index == 0 || meal.entry_date != sorted_meals[index - 1].entry_date %>
+            <td align="center"><%= meal.entry_date.strftime("%D") %></td>
+          <% else %>
+            <td></td>
+          <% end %>
+          <td align="center"><a href="/meals/<%= meal.id %>/edit" class="datetime"><%= meal.entry_time.strftime("%l:%M %p") %></a></td>
+          <% if meal.food_type == "solids" %>
+            <td><%= meal.food_type %> (<%= meal.ingredients %>)</td>
+          <% else %>
+            <td><%= meal.food_type %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  </div>
   <br>
   <p>Click on time to see more information or <a href="/meals/<%= @baby.id %>/new">add a new feeding</a>.</p>
 <% end %>

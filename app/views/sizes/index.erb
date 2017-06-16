@@ -5,22 +5,24 @@
 <% if @baby.sizes.empty? %>
   <p><a href="/sizes/<%= @baby.id %>/new">Add a new entry</a></p>
 <% else %>
-  <table border="1">
-    <tr>
-      <th style="width:100px">Date</th>
-      <th style="width:170px">Age</th>
-      <th style="width:100px">Height (")</th>
-      <th style="width:100px">Weight (lbs)</th>
-    </tr>
-    <% @baby.sizes.sort_by{|size| size.entry_date}.reverse.each do |size| %>
+  <div style="overflow-x: auto;">
+    <table border="1">
       <tr>
-        <td align="center"><a href="/sizes/<%= size.id %>/edit" class="datetime"><%= size.entry_date.strftime("%D") %></a></td>
-        <td align="center"><%= @baby.age(size.entry_date) %></td>
-        <td align="center"><%= size.height %></td>
-        <td align="center"><%= size.weight %></td>
+        <th style="width:100px">Date</th>
+        <th style="width:170px">Age</th>
+        <th style="width:100px">Height (")</th>
+        <th style="width:100px">Weight (lbs)</th>
       </tr>
-    <% end %>
-  </table>
+      <% @baby.sizes.sort_by{|size| size.entry_date}.reverse.each do |size| %>
+        <tr>
+          <td align="center"><a href="/sizes/<%= size.id %>/edit" class="datetime"><%= size.entry_date.strftime("%D") %></a></td>
+          <td align="center"><%= @baby.age(size.entry_date) %></td>
+          <td align="center"><%= size.height %></td>
+          <td align="center"><%= size.weight %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
   <br>
   <p>Click on date to edit entry or <a href="/sizes/<%= @baby.id %>/new">add a new entry</a>.</p>
 <% end %>

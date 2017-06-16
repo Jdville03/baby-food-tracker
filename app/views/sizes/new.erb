@@ -15,18 +15,20 @@
 <h3>Add Height and/or Weight:</h3>
 
 <form action="/sizes/<%= @baby.id %>/new" method="POST">
-  <table border="1">
-    <tr>
-      <th style="width:120px">Date</th>
-      <th style="width:100px">Height (")</th>
-      <th style="width:100px">Weight (lbs)</th>
-    </tr>
-    <tr>
-      <td align="center"><input type="date" name="size[entry_date]" class="date" value="<%= @size.entry_date if @size %>" min="<%= @baby.birthdate %>" max="<%= Date.current %>" required></td>
-      <td align="center"><input type="number" name="size[height]" class="number" value="<%= @size.height if @size %>" step="0.1" min="0.1"></td>
-      <td align="center"><input type="number" name="size[weight]" class="number" value="<%= @size.weight if @size %>" step="0.1" min="0.1"></td>
-    </tr>
-  </table>
+  <div style="overflow-x: auto;">
+    <table border="1">
+      <tr>
+        <th style="width:120px">Date</th>
+        <th style="width:100px">Height (")</th>
+        <th style="width:100px">Weight (lbs)</th>
+      </tr>
+      <tr>
+        <td align="center"><input type="date" name="size[entry_date]" class="date" value="<%= @size.entry_date if @size %>" min="<%= @baby.birthdate %>" max="<%= Date.current %>" required></td>
+        <td align="center"><input type="number" name="size[height]" class="number" value="<%= @size.height if @size %>" step="0.1" min="0.1"></td>
+        <td align="center"><input type="number" name="size[weight]" class="number" value="<%= @size.weight if @size %>" step="0.1" min="0.1"></td>
+      </tr>
+    </table>
+  </div>
   <br>
   <input type="submit" value="Add Entry">
 </form>

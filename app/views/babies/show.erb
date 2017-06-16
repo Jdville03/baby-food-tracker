@@ -6,109 +6,120 @@
   <a href="/babies/<%= @baby.id %>/edit"><small>Edit</small></a>
 </p>
 
-<h3>Caregivers:</h3>
-<ul>
-  <li><a href="/users/<%= current_user.slug %>"><%= current_user.name %></a></li>
-  <% @baby.users.sort_by{|user| user.name.split(" ").last}.each do |user| %>
-    <% if user != current_user %>
-      <li><%= user.name %></li>
+<div class="babyrow">
+  <h3>Caregivers:</h3>
+  <ul>
+    <li><a href="/users/<%= current_user.slug %>"><%= current_user.name %></a></li>
+    <% @baby.users.sort_by{|user| user.name.split(" ").last}.each do |user| %>
+      <% if user != current_user %>
+        <li><%= user.name %></li>
+      <% end %>
     <% end %>
+  </ul>
+  <br>
+</div>
+
+<div class="babyrow">
+  <h3>Last Feeding:</h3>
+  <% if @baby.meals.empty? %>
+    <p><a href="/meals/<%= @baby.id %>/new">Add a new feeding</a></p>
+  <% else %>
+    <div style="overflow-x: auto;">
+      <table border="1">
+        <tr>
+          <th style="width:100px">Date</th>
+          <th style="width:100px">Time</th>
+          <th style="width:120px">Food Type</th>
+          <% if @last_meal.food_type == "breast milk (breast)" %>
+            <th style="width:100px">Duration</th>
+          <% elsif @last_meal.food_type == "breast milk (bottle)" || @last_meal.food_type == "formula" %>
+            <th style="width:100px">Amount</th>
+          <% elsif @last_meal.food_type == "solids" %>
+            <th style="width:160px">Main<br>Ingredient(s)</th>
+            <% if @last_meal.amount %>
+              <th style="width:100px">Amount</th>
+            <% end %>
+          <% end %>
+        </tr>
+        <tr>
+          <td align="center">
+            <%= @last_meal.entry_date.strftime("%D") %>
+            <% if @last_meal.entry_date == Date.current %>
+              <br>(today)
+            <% end %>
+          </td>
+          <td align="center"><%= @last_meal.entry_time.strftime("%l:%M %p") %></td>
+          <td align="center"><%= @last_meal.food_type %></td>
+          <% if @last_meal.food_type == "breast milk (breast)" %>
+            <td align="center" style="white-space: nowrap"><%= @last_meal.duration %> min</td>
+          <% elsif @last_meal.food_type == "breast milk (bottle)" || @last_meal.food_type == "formula" %>
+            <td align="center" style="white-space: nowrap"><%= @last_meal.amount %> <%= @last_meal.amount_type %></td>
+          <% elsif @last_meal.food_type == "solids" %>
+            <td align="center"><%= @last_meal.ingredients %></td>
+            <% if @last_meal.amount %>
+              <td align="center" style="white-space: nowrap"><%= @last_meal.amount %> <%= @last_meal.amount_type %></th>
+            <% end %>
+          <% end %>
+        </tr>
+      </table>
+    </div>
+    <br>
+    <% unless @last_meal.notes.empty? %>
+      <p><strong>Notes:</strong><br><%= @last_meal.notes %></p>
+    <% end %>
+    <p>
+      <a href="/meals/<%= @baby.id %>">View meals history</a> or <a href="/meals/<%= @baby.id %>/new">add a new feeding</a>.
+    </p>
   <% end %>
-</ul>
-<br>
+</div>
 
-<h3>Last Feeding:</h3>
-<% if @baby.meals.empty? %>
-  <p><a href="/meals/<%= @baby.id %>/new">Add a new feeding</a></p>
-<% else %>
-  <table border="1">
-    <tr>
-      <th style="width:100px">Date</th>
-      <th style="width:100px">Time</th>
-      <th style="width:120px">Food Type</th>
-      <% if @last_meal.food_type == "breast milk (breast)" %>
-        <th style="width:100px">Duration</th>
-      <% elsif @last_meal.food_type == "breast milk (bottle)" || @last_meal.food_type == "formula" %>
-        <th style="width:100px">Amount</th>
-      <% elsif @last_meal.food_type == "solids" %>
-        <th style="width:160px">Main<br>Ingredient(s)</th>
-        <% if @last_meal.amount %>
-          <th style="width:100px">Amount</th>
-        <% end %>
-      <% end %>
-    </tr>
-    <tr>
-      <td align="center">
-        <%= @last_meal.entry_date.strftime("%D") %>
-        <% if @last_meal.entry_date == Date.current %>
-          <br>(today)
-        <% end %>
-      </td>
-      <td align="center"><%= @last_meal.entry_time.strftime("%l:%M %p") %></td>
-      <td align="center"><%= @last_meal.food_type %></td>
-      <% if @last_meal.food_type == "breast milk (breast)" %>
-        <td align="center"><%= @last_meal.duration %> min</td>
-      <% elsif @last_meal.food_type == "breast milk (bottle)" || @last_meal.food_type == "formula" %>
-        <td align="center"><%= @last_meal.amount %> <%= @last_meal.amount_type %></td>
-      <% elsif @last_meal.food_type == "solids" %>
-        <td align="center"><%= @last_meal.ingredients %></td>
-        <% if @last_meal.amount %>
-          <td align="center"><%= @last_meal.amount %> <%= @last_meal.amount_type %></th>
-        <% end %>
-      <% end %>
-    </tr>
-  </table>
-  <br>
-  <% unless @last_meal.notes.empty? %>
-    <p><strong>Notes:</strong><br><%= @last_meal.notes %></p>
+<div class="babyrow">
+  <h3>Last Measurement:</h3>
+  <% if @baby.sizes.empty? %>
+    <p><a href="/sizes/<%= @baby.id %>/new">Add a new entry</a></p>
+  <% else %>
+    <div style="overflow-x: auto;">
+      <table border="1">
+        <tr>
+          <th style="width:100px">Date</th>
+          <th style="width:170px">Age</th>
+          <% if @last_size.height %>
+            <th style="width:100px">Height (")</th>
+          <% end %>
+          <% if @last_size.weight %>
+            <th style="width:100px">Weight (lbs)</th>
+          <% end %>
+        </tr>
+        <tr>
+          <td align="center">
+            <%= @last_size.entry_date.strftime("%D") %>
+            <% if @last_size.entry_date == Date.current %>
+            <br>(today)
+            <% end %>
+          </td>
+          <td align="center"><%= @baby.age(@last_size.entry_date) %></td>
+          <% if @last_size.height %>
+            <td align="center"><%= @last_size.height %></td>
+          <% end %>
+          <% if @last_size.weight %>
+            <td align="center"><%= @last_size.weight %></td>
+          <% end %>
+        </tr>
+      </table>
+    </div>
+    <br>
+    <p>
+      <a href="/sizes/<%= @baby.id %>">View growth history</a> or <a href="/sizes/<%= @baby.id %>/new">add a new entry</a>.
+    </p>
   <% end %>
-  <p>
-    <a href="/meals/<%= @baby.id %>">View meals history</a> or <a href="/meals/<%= @baby.id %>/new">add a new feeding</a>.
-  </p>
-<% end %>
+</div>
 
-<h3>Last Measurement:</h3>
-<% if @baby.sizes.empty? %>
-  <p><a href="/sizes/<%= @baby.id %>/new">Add a new entry</a></p>
-<% else %>
-  <table border="1">
-    <tr>
-      <th style="width:100px">Date</th>
-      <th style="width:170px">Age</th>
-      <% if @last_size.height %>
-        <th style="width:100px">Height (")</th>
-      <% end %>
-      <% if @last_size.weight %>
-        <th style="width:100px">Weight (lbs)</th>
-      <% end %>
-    </tr>
-    <tr>
-      <td align="center">
-        <%= @last_size.entry_date.strftime("%D") %>
-        <% if @last_size.entry_date == Date.current %>
-        <br>(today)
-        <% end %>
-      </td>
-      <td align="center"><%= @baby.age(@last_size.entry_date) %></td>
-      <% if @last_size.height %>
-        <td align="center"><%= @last_size.height %></td>
-      <% end %>
-      <% if @last_size.weight %>
-        <td align="center"><%= @last_size.weight %></td>
-      <% end %>
-    </tr>
-  </table>
-  <br>
-  <p>
-    <a href="/sizes/<%= @baby.id %>">View growth history</a> or <a href="/sizes/<%= @baby.id %>/new">add a new entry</a>.
-  </p>
-<% end %>
-<br>
-
-<form action="/babies/<%= @baby.id %>/delete" method="POST">
-  If you would like to remove <%= @baby.name.split(" ").first %> from the list of babies under your care, click here:
-  <input type="hidden" id="hidden" name="_method" value="DELETE">
-  <input type="submit" value="Remove Baby">
-  <br>
-  <small>(<%= @baby.name.split(" ").first %> will remain visible to his or her other caregivers)</small>
-</form>
+<div class="babyrow">
+  <form action="/babies/<%= @baby.id %>/delete" method="POST">
+    If you would like to remove <%= @baby.name.split(" ").first %> from the list of babies under your care, click here:
+    <input type="hidden" id="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Remove Baby">
+    <br>
+    <small>(<%= @baby.name.split(" ").first %> will remain visible to his or her other caregivers)</small>
+  </form>
+</div>

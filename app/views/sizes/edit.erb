@@ -16,18 +16,20 @@
 
 <form action="/sizes/<%= @size.id %>/edit" method="POST">
   <input type="hidden" id="hidden" name="_method" value="PATCH">
-  <table border="1">
-    <tr>
-      <th>Date</th>
-      <th style="width:100px">Height (")</th>
-      <th style="width:100px">Weight (lbs)</th>
-    </tr>
-    <tr>
-      <td align="center"><input type="date" name="entry_date" class="date" value="<%= @size.entry_date %>" min="<%= @size.baby.birthdate %>" max="<%= Date.current %>" required></td>
-      <td align="center"><input type="number" name="height" class="number" value="<%= @size.height %>" step="0.1" min="0.1"></td>
-      <td align="center"><input type="number" name="weight" class="number" value="<%= @size.weight %>" step="0.1" min="0.1"></td>
-    </tr>
-  </table>
+  <div style="overflow-x: auto;">
+    <table border="1">
+      <tr>
+        <th>Date</th>
+        <th style="width:100px">Height (")</th>
+        <th style="width:100px">Weight (lbs)</th>
+      </tr>
+      <tr>
+        <td align="center"><input type="date" name="entry_date" class="date" value="<%= @size.entry_date %>" min="<%= @size.baby.birthdate %>" max="<%= Date.current %>" required></td>
+        <td align="center"><input type="number" name="height" class="number" value="<%= @size.height %>" step="0.1" min="0.1"></td>
+        <td align="center"><input type="number" name="weight" class="number" value="<%= @size.weight %>" step="0.1" min="0.1"></td>
+      </tr>
+    </table>
+  </div>
   <br>
   <input type="submit" value="Update Entry">
 </form>
