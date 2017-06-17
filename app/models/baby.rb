@@ -5,7 +5,15 @@ class Baby < ActiveRecord::Base
   has_many :meals
 
   validates :name, :birthdate, presence: true
+  validate :birthdate_cannot_be_in_the_future
   has_secure_password
+
+  def birthdate_cannot_be_in_the_future
+    if birthdate > Date.current
+      errors.add(:birthdate, "can't be in the future")
+    end
+  end
+
 
   #extend Slugifiable::ClassMethods
 

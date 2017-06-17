@@ -18,7 +18,6 @@ class BabiesController < ApplicationController
 
   get '/babies/existing' do
     redirect_if_not_logged_in
-    @error_message = params[:error]
     erb :'babies/existing'
   end
 
