@@ -12,6 +12,7 @@ gem 'pry'
 gem 'bcrypt'
 gem 'tux'
 gem 'pg'
+gem 'rack-flash3', :require => 'rack-flash'
 
 group :test, :development do
   gem 'sqlite3'

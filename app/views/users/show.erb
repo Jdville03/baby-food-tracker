@@ -3,6 +3,11 @@
     <%= @error_message %>
   </div>
   <br>
+<% elsif flash.has?(:message) %>
+  <div class="message">
+    <%= flash[:message] %>
+  </div>
+  <br>
 <% end %>
 
 <h2><%= @user.name %></h2>

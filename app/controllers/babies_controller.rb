@@ -1,5 +1,7 @@
 class BabiesController < ApplicationController
 
+  use Rack::Flash
+
   get '/babies/new' do
     redirect_if_not_logged_in
     erb :'babies/new'
@@ -9,6 +11,7 @@ class BabiesController < ApplicationController
     redirect_if_not_logged_in
     @baby = current_user.babies.create(params)
     if @baby.save
+      flash[:message] = "You added #{@baby.name} to your account."
       redirect "/users/#{current_user.slug}"
     else
       # view can access @baby in order to display validation failures with error messages
@@ -29,6 +32,7 @@ class BabiesController < ApplicationController
         redirect "/users/#{current_user.slug}?error=#{@baby.name} is already included in your account."
       else
         current_user.babies << @baby
+        flash[:message] = "You added #{@baby.name} to your account."
         redirect "/users/#{current_user.slug}"
       end
     else
@@ -59,6 +63,7 @@ class BabiesController < ApplicationController
     # user may only remove baby from own account (baby will still remain visible to its other users)
     if baby
       current_user.babies.delete(baby)
+      flash[:message] = "You removed #{baby.name} from your account."
       redirect "/users/#{current_user.slug}"
     else
       redirect "/users/#{current_user.slug}?error=You may only remove your own babies from the list of babies under your care."

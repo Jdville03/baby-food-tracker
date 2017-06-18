@@ -53,6 +53,8 @@ GEM
       slop (~> 3.4)
     public_suffix (2.0.5)
     rack (2.0.3)
+    rack-flash3 (1.0.5)
+      rack
     rack-protection (2.0.0)
       rack
     rack-test (0.6.3)
@@ -118,6 +120,7 @@ DEPENDENCIES
   database_cleaner!
   pg
   pry
+  rack-flash3
   rack-test
   rake
   require_all
