@@ -6,10 +6,12 @@ class User < ActiveRecord::Base
   validates :username, :email, uniqueness: { case_sensitive: false }
   has_secure_password
 
-  extend Slugifiable::ClassMethods
-
   def slug
     self.username.downcase.gsub(/[\s\W]/, "-")
+  end
+
+  def self.find_by_slug(slug)
+    self.all.detect{|user| user.slug == slug}
   end
 
 end

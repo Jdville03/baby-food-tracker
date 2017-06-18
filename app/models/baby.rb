@@ -14,21 +14,12 @@ class Baby < ActiveRecord::Base
     end
   end
 
-
-  #extend Slugifiable::ClassMethods
-
-  #def slug
-  #  self.name.downcase.gsub(/[\s\W]/, "-")
-  #end
-
   DAYS_IN_MONTH  = [nil, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-  # This method takes a birthday in the string format "MM/DD/YYYY" and returns
-  # the person's age.
+  # This method returns baby's age as of the argument date
   def age(as_of_date)
     borrowed_month = false
-    #current_date = Date.current
     # Get days for this year
-    if as_of_date.to_date.leap?
+    if as_of_date.leap?
       DAYS_IN_MONTH[2] = 29
     end
     days = as_of_date.day - birthdate.day
