@@ -109,6 +109,18 @@
     width: 160px;
   }
 
+  a:link, a:visited {
+    color: black;
+  }
+
+  a:hover {
+    color: blue;
+  }
+
+  a:active {
+    color: red;
+  }
+
   a.datetime:link, footer a:link {
     text-decoration: none;
   }
