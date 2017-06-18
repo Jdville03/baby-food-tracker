@@ -10,7 +10,7 @@
   <h3>Caregivers:</h3>
   <ul>
     <li><a href="/users/<%= current_user.slug %>"><%= current_user.name %></a></li>
-    <% @baby.users.sort_by{|user| user.name.split(" ").last}.each do |user| %>
+    <% @baby.users.sort_by{|user| [user.name.split(" ").last, user.name.split(" ").first]}.each do |user| %>
       <% if user != current_user %>
         <li><%= user.name %></li>
       <% end %>

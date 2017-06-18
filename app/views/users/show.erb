@@ -14,7 +14,7 @@
 
 <% unless @user.babies.empty? %>
   <h3>Babies under your care:</h3>
-  <% @user.babies.sort_by{|baby| baby.name.split(" ").last}.each do |baby| %>
+  <% @user.babies.sort_by{|baby| [baby.name.split(" ").last, baby.name.split(" ").first]}.each do |baby| %>
     <ul>
       <li><a href="/babies/<%= baby.id %>"><%= baby.name %></a></li>
     </ul>
