@@ -26,7 +26,7 @@ class BabiesController < ApplicationController
     if @baby = Baby.find_by(name: params[:name], birthdate: params[:birthdate]).try(:authenticate, params[:password])
       if current_user.babies.include?(@baby)
         # error message displayed in view if existing baby being added already belongs to the user
-        redirect "/users/#{current_user.slug}?error=The baby you attempted to add is already included in your profile."
+        redirect "/users/#{current_user.slug}?error=#{@baby.name} is already included in your account."
       else
         current_user.babies << @baby
         redirect "/users/#{current_user.slug}"
@@ -56,7 +56,7 @@ class BabiesController < ApplicationController
   delete '/babies/:id/delete' do
     redirect_if_not_logged_in
     baby = current_user.babies.find_by_id(params[:id])
-    # user may only remove baby from own profile (baby will still remain visible to its other users)
+    # user may only remove baby from own account (baby will still remain visible to its other users)
     if baby
       current_user.babies.delete(baby)
       redirect "/users/#{current_user.slug}"
