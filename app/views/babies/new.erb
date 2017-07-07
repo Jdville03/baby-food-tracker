@@ -12,7 +12,6 @@
 
 <h2>Create A New Baby</h2>
 
-<!-- form includes previously entered data on subsequent attempts to create a new baby after a validation error -->
 <form action="/babies/new" method="POST">
   <label for="name">Name:</label><br>
   <input type="text" id="name" name="name" value="<%= @baby.name if @baby %>" required>

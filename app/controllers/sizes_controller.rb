@@ -3,7 +3,6 @@ class SizesController < ApplicationController
   get '/sizes/:id/edit' do
     redirect_if_not_logged_in
     @size = Size.find_by_id(params[:id])
-    # user may only edit size of baby that belongs to user
     if @size && current_user.babies.include?(@size.baby)
       erb :'sizes/edit'
     else
@@ -14,7 +13,6 @@ class SizesController < ApplicationController
   patch '/sizes/:id/edit' do
     redirect_if_not_logged_in
     @size = Size.find_by_id(params[:id])
-    # user may only edit size of baby that belongs to user
     if @size && current_user.babies.include?(@size.baby)
       @size.entry_date = params[:entry_date]
       @size.height = params[:height]
@@ -22,7 +20,6 @@ class SizesController < ApplicationController
       if @size.save
         redirect "/sizes/#{@size.baby.id}"
       else
-        # view can access @size in order to display validation failures with error messages
         erb :'sizes/edit'
       end
     else
@@ -33,7 +30,6 @@ class SizesController < ApplicationController
   delete '/sizes/:id/delete' do
     redirect_if_not_logged_in
     size = Size.find_by_id(params[:id])
-    # user may only delete size of baby that belongs to user
     if size && current_user.babies.include?(size.baby)
       size.delete
       redirect "/sizes/#{size.baby.id}"
@@ -45,7 +41,6 @@ class SizesController < ApplicationController
   get '/sizes/:baby_id' do
     redirect_if_not_logged_in
     @baby = current_user.babies.find_by_id(params[:baby_id])
-    # user may only view sizes for baby that belongs to user
     if @baby
       erb :'sizes/index'
     else
@@ -56,7 +51,6 @@ class SizesController < ApplicationController
   get '/sizes/:baby_id/new' do
     redirect_if_not_logged_in
     @baby = current_user.babies.find_by_id(params[:baby_id])
-    # user may only add size of baby that belongs to user
     if @baby
       erb :'sizes/new'
     else
@@ -67,13 +61,11 @@ class SizesController < ApplicationController
   post '/sizes/:baby_id/new' do
     redirect_if_not_logged_in
     @baby = current_user.babies.find_by_id(params[:baby_id])
-    # user may only add size of baby that belongs to user
     if @baby
       @size = @baby.sizes.create(params[:size])
       if @size.save
         redirect "/sizes/#{@baby.id}"
       else
-        # view can access @baby and @size in order to display validation failures with error messages
         erb :'sizes/new'
       end
     else

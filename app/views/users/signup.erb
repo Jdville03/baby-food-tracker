@@ -12,7 +12,6 @@
 
 <h2>Sign Up</h2>
 
-<!-- form includes user's previously entered data on subsequent attempts to sign up after receiving a validation error -->
 <form action="/signup" method="POST">
   <label for="username">Username:</label><br>
   <input type="text" id="username" name="username" value="<%= @user.username if @user %>" required>

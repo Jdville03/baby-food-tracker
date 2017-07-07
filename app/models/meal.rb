@@ -14,4 +14,28 @@ class Meal < ActiveRecord::Base
 
   include ValidationMethods::InstanceMethods
 
+  def update_with_data(data)
+    case data[:food_type]
+    when "breast milk (breast)"
+      self.duration = data[:duration]
+    when "breast milk (bottle)", "formula"
+      self.amount = data[:amount]
+      self.amount_type = data[:amount_type]
+    when "solids"
+      self.ingredients = data[:ingredients]
+      self.amount = data[:amount]
+      if self.amount
+        self.amount_type = data[:amount_type]
+      else
+        self.amount_type = nil
+      end
+    end
+
+    self.entry_date = data[:entry_date]
+    self.entry_time = data[:entry_time]
+    self.food_type = data[:food_type]
+    self.notes = data[:notes]
+    self.save
+  end
+  
 end

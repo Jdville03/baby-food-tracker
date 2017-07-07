@@ -16,7 +16,6 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect "/users/#{current_user.slug}"
     else
-      # view can access @user in order to display validation failures to user with error messages
       erb :'users/signup'
     end
   end
@@ -35,7 +34,6 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect "/users/#{current_user.slug}"
     else
-      # error message displayed in view if username and password are not valid
       redirect '/login?error=The Username and Password combination is not valid. Please try again or sign up.'
     end
   end
@@ -53,7 +51,6 @@ class UsersController < ApplicationController
     redirect_if_not_logged_in
     @error_message = params[:error]
     @user = User.find_by_slug(params[:slug])
-    # user may only view its own show page which lists the babies it has
     if @user && @user.id == current_user.id
       erb :'users/show'
     else
